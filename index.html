@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>DesossaPro Premium - Sistema de Rendimento</title>
+    <title>DesossaPro Premium - Sistema de Rendimento & Faturamento</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -37,29 +37,26 @@
             -webkit-tap-highlight-color: transparent;
         }
         .tab-view {
-            transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             width: 100%;
         }
         .tab-inactive {
             opacity: 0;
-            transform: translateY(16px) scale(0.99);
+            transform: translateY(8px) scale(0.99);
             pointer-events: none;
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
             visibility: hidden;
             overflow: hidden;
             height: 0;
+            width: 0;
         }
         .tab-active {
             opacity: 1;
             transform: translateY(0) scale(1);
             visibility: visible;
             position: relative;
-            height: auto;
         }
-        /* Custom scrollbar */
+        /* Scrollbar customizada e suave */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -96,8 +93,8 @@
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300 pb-20 md:pb-0">
 
     <!-- Header Fixo de Altura Reduzida -->
-    <header class="bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800/80 sticky top-0 z-40 transition-all duration-300 no-print">
-        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <header class="bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800/80 sticky top-0 z-40 transition-all duration-300 no-print h-16 flex-shrink-0">
+        <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <div class="bg-gradient-to-tr from-brand-600 to-brand-500 text-white p-2.5 rounded-2xl shadow-lg shadow-brand-500/10">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -106,7 +103,7 @@
                 </div>
                 <div>
                     <h1 id="headerShopName" class="text-base font-black tracking-tight text-slate-900 dark:text-white">DesossaPro</h1>
-                    <p id="headerShopSlogan" class="text-[10px] text-slate-500 dark:text-slate-400 font-bold tracking-widest uppercase">Controle de Desossa</p>
+                    <p id="headerShopSlogan" class="text-[10px] text-slate-500 dark:text-slate-400 font-bold tracking-widest uppercase">Controle de Desossa & Faturamento</p>
                 </div>
             </div>
 
@@ -121,23 +118,23 @@
         </div>
     </header>
 
-    <!-- Barra de Abas Fluida (Estilo Instagram/YouTube no Mobile, Sticky no Desktop) -->
-    <nav class="fixed bottom-0 left-0 right-0 md:top-16 md:bottom-auto md:sticky bg-white dark:bg-slate-900 border-t md:border-t-0 md:border-b border-slate-200 dark:border-slate-800 z-50 pb-safe md:pb-0 no-print transition-all duration-300 shadow-lg md:shadow-none">
-        <div class="max-w-6xl mx-auto px-4 flex justify-around md:justify-start md:space-x-8">
-            <button onclick="switchTab('calculadora')" id="tab-calculadora" class="flex flex-col md:flex-row items-center justify-center py-2 md:py-3 px-3 border-t-2 md:border-t-0 md:border-b-2 font-bold text-[10px] md:text-xs tracking-wider uppercase transition-all space-y-1 md:space-y-0 md:space-x-1.5 border-brand-500 text-brand-600 dark:text-brand-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-4 md:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <!-- Barra de Abas Fluida (Centralizada no Desktop e inferior no Mobile - Como YT ou Instagram) -->
+    <nav class="fixed bottom-0 left-0 right-0 md:top-16 md:bottom-auto md:sticky bg-white dark:bg-slate-900 border-t md:border-t-0 md:border-b border-slate-200 dark:border-slate-800 z-50 pb-safe md:pb-0 no-print transition-all duration-300 shadow-lg md:shadow-none h-16 md:h-12 flex-shrink-0">
+        <div class="max-w-6xl mx-auto px-4 flex justify-around md:justify-center md:space-x-12 h-full items-center">
+            <button onclick="switchTab('calculadora')" id="tab-calculadora" class="flex flex-col md:flex-row items-center justify-center py-2 md:py-3 px-4 border-t-2 md:border-t-0 md:border-b-2 font-bold text-[10px] md:text-xs tracking-wider uppercase transition-all space-y-1 md:space-y-0 md:space-x-1.5 border-brand-500 text-brand-600 dark:text-brand-500 h-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 11h.01M12 14h.01M12 17h.01M9 11h.01M12 7h.01M15 11h.01M15 14h.01M15 17h.01m-7-3h3m2 10h4a2 2 0 002-2V4a2 2 0 00-2-2H9a2 2 0 00-2 2v16a2 2 0 002 2z" />
                 </svg>
                 <span>Desossa</span>
             </button>
-            <button onclick="switchTab('planilha')" id="tab-planilha" class="flex flex-col md:flex-row items-center justify-center py-2 md:py-3 px-3 border-t-2 md:border-t-0 md:border-b-2 font-bold text-[10px] md:text-xs tracking-wider uppercase transition-all space-y-1 md:space-y-0 md:space-x-1.5 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-4 md:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 0-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            <button onclick="switchTab('planilha')" id="tab-planilha" class="flex flex-col md:flex-row items-center justify-center py-2 md:py-3 px-4 border-t-2 md:border-t-0 md:border-b-2 font-bold text-[10px] md:text-xs tracking-wider uppercase transition-all space-y-1 md:space-y-0 md:space-x-1.5 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 h-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
-                <span>Planilha</span>
+                <span>Planilha / Log</span>
             </button>
-            <button onclick="switchTab('configuracoes')" id="tab-configuracoes" class="flex flex-col md:flex-row items-center justify-center py-2 md:py-3 px-3 border-t-2 md:border-t-0 md:border-b-2 font-bold text-[10px] md:text-xs tracking-wider uppercase transition-all space-y-1 md:space-y-0 md:space-x-1.5 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-4 md:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <button onclick="switchTab('configuracoes')" id="tab-configuracoes" class="flex flex-col md:flex-row items-center justify-center py-2 md:py-3 px-4 border-t-2 md:border-t-0 md:border-b-2 font-bold text-[10px] md:text-xs tracking-wider uppercase transition-all space-y-1 md:space-y-0 md:space-x-1.5 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 h-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
@@ -146,26 +143,29 @@
         </div>
     </nav>
 
-    <!-- Painel de Notificações Pop-up (Toast) -->
-    <div id="toast" class="hidden fixed bottom-24 md:bottom-6 right-6 z-50 bg-slate-900 dark:bg-white text-white dark:text-slate-950 px-5 py-3 rounded-2xl shadow-xl flex items-center space-x-3 transition-all transform translate-y-10 opacity-0 duration-300">
+    <!-- Notificações Pop-up (Toast) -->
+    <div id="toast" class="hidden fixed bottom-20 md:bottom-6 right-6 z-50 bg-slate-900 dark:bg-white text-white dark:text-slate-950 px-5 py-3 rounded-2xl shadow-xl flex items-center space-x-3 transition-all transform translate-y-10 opacity-0 duration-300">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
         </svg>
         <span id="toastMessage" class="font-bold text-xs tracking-wide">Sucesso!</span>
     </div>
 
-    <!-- Contêiner Wrapper para Transições Suaves das Abas -->
-    <div class="relative flex-grow flex flex-col w-full overflow-hidden pb-24 md:pb-6">
+    <!-- Contêiner Wrapper Central SaaS (Com rolagem adequada para não travar no computador/celular) -->
+    <div class="relative flex-grow flex flex-col w-full h-full max-w-6xl mx-auto py-4">
+        
         <!-- VIEW 1: CALCULADORA DE DESOSSA -->
-        <div id="view-calculadora" class="tab-view tab-active max-w-6xl mx-auto w-full px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 flex-grow">
-            <!-- Coluna de Entrada de Dados e Boi Anatômico (7 Colunas) -->
-            <div class="lg:col-span-7 space-y-6">
+        <div id="view-calculadora" class="tab-view tab-active w-full px-4 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Entrada de dados e Boi (Esquerda) -->
+            <div class="lg:col-span-7 space-y-4">
+                
                 <!-- Quadro Negro do Boi Realista de Giz -->
-                <div class="bg-slate-900 dark:bg-black rounded-3xl border border-slate-800 shadow-xl p-5 flex flex-col items-center relative overflow-hidden">
-                    <span class="absolute top-4 left-4 text-[9px] font-black tracking-widest text-slate-500 uppercase">CORTES DE PRECISÃO COM GIZ</span>
+                <div class="bg-slate-900 dark:bg-black rounded-3xl border border-slate-800 shadow-xl p-4 flex flex-col items-center relative overflow-hidden">
+                    <span class="absolute top-3 left-4 text-[9px] font-black tracking-widest text-slate-500 uppercase">CORTES DE PRECISÃO REALISTA</span>
                     
-                    <!-- SVG Anatômico Premium do Boi -->
-                    <div class="w-full max-w-[480px] h-auto my-4 transition-all duration-300">
+                    <!-- SVG Anatômico Premium do Boi (Visível por padrão em desktop, colapsável em mobile) -->
+                    <div id="cowSvgContainer" class="w-full max-w-[420px] h-auto my-3 transition-all duration-300 hidden md:block">
                         <svg viewBox="0 0 620 380" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                             <!-- Corpo Completo (Fundo) -->
                             <path d="M 520,130 C 510,80 440,75 420,95 C 400,100 370,90 350,90 C 290,95 240,105 210,110 C 180,105 130,110 110,135 C 90,155 85,190 90,230 C 100,260 120,270 140,270 C 150,270 160,260 170,270 C 180,280 200,285 240,280 C 280,275 320,280 340,280 C 370,280 390,270 410,250 C 420,240 435,245 450,240 C 470,230 490,195 510,175 C 525,160 535,150 520,130 Z" class="fill-slate-800/20 stroke-slate-700/40 stroke-2"/>
@@ -178,78 +178,87 @@
                             <path id="svg-traseiro" d="M 110,135 C 130,110 180,105 210,110 C 220,114 230,118 240,122 C 238,160 235,220 240,268 C 200,275 175,275 160,265 C 150,250 145,285 130,285 C 120,285 110,255 105,240 C 85,190 90,155 110,135 Z" 
                                   class="fill-slate-800/70 stroke-slate-500 stroke-[2] cursor-pointer hover:fill-brand-900/35 transition-all duration-300" onclick="selectPeca('traseiro')"/>
 
-                            <!-- Costela (Ponta de Agulha) -->
+                            <!-- Costela / Ponta de Agulha -->
                             <path id="svg-boi_inteiro" d="M 240,122 C 280,118 320,114 360,112 C 355,160 340,220 340,260 C 310,265 270,270 240,268 C 235,220 238,160 240,122 Z" 
                                   class="fill-slate-800/70 stroke-slate-500 stroke-[2] cursor-pointer hover:fill-brand-900/35 transition-all duration-300" onclick="selectPeca('boi_inteiro')"/>
 
-                            <!-- Detalhes de pernas e rabo decorativos -->
+                            <!-- Patas e Detalhes Adicionais -->
                             <path d="M 130,285 L 125,340 C 125,344 115,345 110,345 L 115,285 Z" class="fill-slate-900 stroke-slate-700/80 stroke-[1.5]"/>
                             <path d="M 375,275 L 375,340 C 375,344 365,345 360,345 L 360,278 Z" class="fill-slate-900 stroke-slate-700/80 stroke-[1.5]"/>
                             <path d="M 100,140 C 85,150 70,180 65,220" class="fill-none stroke-slate-700 stroke-[2.5] stroke-linecap-round"/>
 
-                            <!-- Etiquetas texturizadas -->
+                            <!-- Rótulos de Giz com Letras Clássicas -->
                             <text x="145" y="180" class="fill-slate-400 font-black text-[11px] pointer-events-none select-none tracking-widest uppercase opacity-75">TRASEIRO</text>
                             <text x="260" y="195" class="fill-slate-400 font-black text-[11px] pointer-events-none select-none tracking-widest uppercase opacity-75">COSTELA</text>
                             <text x="390" y="175" class="fill-slate-400 font-black text-[11px] pointer-events-none select-none tracking-widest uppercase opacity-75">DIANTEIRO</text>
                         </svg>
                     </div>
 
-                    <!-- Caixa de Seleção Rápida e Ativa -->
-                    <div id="visualLabel" class="text-[10px] font-black tracking-widest text-brand-100 bg-brand-900/50 border border-brand-800/40 px-5 py-2 rounded-full transition-all text-center">
-                        CARCAÇA DE BOI INTEIRO
+                    <!-- Botão de Ver Mapa no Celular -->
+                    <div class="flex items-center space-x-2">
+                        <div id="visualLabel" class="text-[10px] font-black tracking-widest text-brand-100 bg-brand-900/50 border border-brand-800/40 px-5 py-1.5 rounded-full transition-all text-center">
+                            CARCAÇA DE BOI INTEIRO
+                        </div>
+                        <button type="button" onclick="toggleCowMap()" class="md:hidden text-[9px] font-extrabold text-white bg-slate-800 hover:bg-slate-750 px-3 py-1.5 rounded-full border border-slate-700 transition-all flex items-center space-x-1">
+                            <span>🗺️</span>
+                            <span id="btnCowToggleText">Ver Desenho</span>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Seleção Manual por Cards com Toque Rápido -->
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5">
-                    <button onclick="selectPeca('boi_inteiro')" id="card-boi_inteiro" class="peca-card p-3.5 bg-white dark:bg-slate-900 rounded-2xl border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-800 shadow-sm flex flex-col items-center text-center transition-all cursor-pointer">
-                        <span class="text-xl mb-1.5">🐮</span>
-                        <span class="text-[10px] font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Boi Inteiro</span>
+                <!-- Cards de Escolha do Tipo de Peça -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+                    <button onclick="selectPeca('boi_inteiro')" id="card-boi_inteiro" class="peca-card p-3 bg-white dark:bg-slate-900 rounded-2xl border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-800 shadow-sm flex flex-col items-center text-center transition-all cursor-pointer">
+                        <span class="text-lg mb-1">🐮</span>
+                        <span class="text-[9px] font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Boi Inteiro</span>
                     </button>
-                    <button onclick="selectPeca('dianteiro')" id="card-dianteiro" class="peca-card p-3.5 bg-white dark:bg-slate-900 rounded-2xl border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-800 shadow-sm flex flex-col items-center text-center transition-all cursor-pointer">
-                        <span class="text-xl mb-1.5">🥩</span>
-                        <span class="text-[10px] font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Dianteiro</span>
+                    <button onclick="selectPeca('dianteiro')" id="card-dianteiro" class="peca-card p-3 bg-white dark:bg-slate-900 rounded-2xl border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-800 shadow-sm flex flex-col items-center text-center transition-all cursor-pointer">
+                        <span class="text-lg mb-1">🥩</span>
+                        <span class="text-[9px] font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Dianteiro</span>
                     </button>
-                    <button onclick="selectPeca('traseiro')" id="card-traseiro" class="peca-card p-3.5 bg-white dark:bg-slate-900 rounded-2xl border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-800 shadow-sm flex flex-col items-center text-center transition-all cursor-pointer">
-                        <span class="text-xl mb-1.5">🍖</span>
-                        <span class="text-[10px] font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Traseiro</span>
+                    <button onclick="selectPeca('traseiro')" id="card-traseiro" class="peca-card p-3 bg-white dark:bg-slate-900 rounded-2xl border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-800 shadow-sm flex flex-col items-center text-center transition-all cursor-pointer">
+                        <span class="text-lg mb-1">🍖</span>
+                        <span class="text-[9px] font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Traseiro</span>
                     </button>
-                    <button onclick="selectPeca('banda_direita')" id="card-banda_direita" class="peca-card p-3.5 bg-white dark:bg-slate-900 rounded-2xl border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-800 shadow-sm flex flex-col items-center text-center transition-all cursor-pointer">
-                        <span class="text-xl mb-1.5">👉</span>
-                        <span class="text-[10px] font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Banda Dir.</span>
+                    <button onclick="selectPeca('banda_direita')" id="card-banda_direita" class="peca-card p-3 bg-white dark:bg-slate-900 rounded-2xl border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-800 shadow-sm flex flex-col items-center text-center transition-all cursor-pointer">
+                        <span class="text-lg mb-1">👉</span>
+                        <span class="text-[9px] font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Banda Dir.</span>
                     </button>
-                    <button onclick="selectPeca('banda_esquerda')" id="card-banda_esquerda" class="peca-card p-3.5 bg-white dark:bg-slate-900 rounded-2xl border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-800 shadow-sm flex flex-col items-center text-center transition-all cursor-pointer">
-                        <span class="text-xl mb-1.5">👈</span>
-                        <span class="text-[10px] font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Banda Esq.</span>
+                    <button onclick="selectPeca('banda_esquerda')" id="card-banda_esquerda" class="peca-card p-3 bg-white dark:bg-slate-900 rounded-2xl border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-800 shadow-sm flex flex-col items-center text-center transition-all cursor-pointer">
+                        <span class="text-lg mb-1">👈</span>
+                        <span class="text-[9px] font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Banda Esq.</span>
                     </button>
                 </div>
 
-                <!-- Formulário de Peso e Lançamento -->
-                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-6 shadow-sm space-y-4">
-                    <form id="desossaForm" onsubmit="salvarDesossa(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Formulário Técnico e Lançamento de Peso -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-5 shadow-sm space-y-3">
+                    <form id="desossaForm" onsubmit="salvarDesossa(event)" class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div class="md:col-span-2">
-                            <label class="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5">Peso de Entrada (KG)</label>
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Peso Bruto Entrada (KG)</label>
+                                <span class="text-[9px] font-extrabold text-brand-500 bg-brand-500/10 px-2.5 py-0.5 rounded-full animate-pulse">Cálculo e Preço Automáticos</span>
+                            </div>
                             <div class="relative">
-                                <input type="number" id="pesoBruto" required step="0.01" min="0.1" placeholder="Ex: 275.5" class="w-full pl-6 pr-16 py-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-xl font-black">
+                                <input type="number" id="pesoBruto" required step="0.01" min="0.1" placeholder="Ex: 275.5" class="w-full pl-6 pr-16 py-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-xl font-black">
                                 <span class="absolute right-6 top-1/2 -translate-y-1/2 text-sm font-black text-slate-400">KG</span>
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5">Operador Responsável</label>
-                            <input type="text" id="responsavel" required placeholder="Nome do açougueiro" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 text-xs font-bold transition-all">
+                            <label class="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Operador Responsável</label>
+                            <input type="text" id="responsavel" required placeholder="Nome do operador" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 text-xs font-bold transition-all">
                         </div>
 
                         <div>
-                            <label class="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5">Frigorífico Fornecedor</label>
-                            <input type="text" id="fornecedor" required placeholder="Origem do lote" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 text-xs font-bold transition-all">
+                            <label class="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Frigorífico Fornecedor</label>
+                            <input type="text" id="fornecedor" required placeholder="Frigorífico ou Origem" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 text-xs font-bold transition-all">
                         </div>
 
-                        <div class="md:col-span-2 pt-2 flex space-x-3">
-                            <button type="button" onclick="limparCampos()" class="flex-1 py-3 px-4 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-bold rounded-xl text-xs uppercase tracking-wider transition-all">
+                        <div class="md:col-span-2 pt-1 flex space-x-2">
+                            <button type="button" onclick="limparCampos()" class="flex-1 py-2.5 px-3 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-bold rounded-xl text-xs uppercase tracking-wider transition-all">
                                 Limpar
                             </button>
-                            <button type="submit" class="flex-2 py-3 px-6 bg-gradient-to-r from-brand-600 to-brand-500 text-white rounded-xl font-bold shadow-lg shadow-brand-500/10 hover:shadow-brand-500/20 transition-all text-xs uppercase tracking-wider flex items-center justify-center space-x-2">
+                            <button type="submit" class="flex-2 py-2.5 px-5 bg-gradient-to-r from-brand-600 to-brand-500 text-white rounded-xl font-bold shadow-lg shadow-brand-500/10 hover:shadow-brand-500/20 transition-all text-xs uppercase tracking-wider flex items-center justify-center space-x-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
                                 </svg>
@@ -260,60 +269,81 @@
                 </div>
             </div>
 
-            <!-- Coluna de Resultados Rápidos (5 Colunas) -->
-            <div class="lg:col-span-5 space-y-6">
-                <!-- Painel de Estatísticas de Rendimento -->
-                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-6 shadow-sm space-y-6">
+            <!-- Coluna de Resultados / Faturamento (Direita) -->
+            <div class="lg:col-span-5 space-y-4">
+                
+                <!-- Painel Metas de Aproveitamento e Faturamento -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-5 shadow-sm space-y-4">
                     <div class="flex items-center justify-between">
-                        <h2 class="text-[10px] font-black tracking-widest uppercase text-slate-400 dark:text-slate-500">Aproveitamento</h2>
-                        <button onclick="imprimirCupom()" class="p-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition-all flex items-center space-x-2 text-xs font-bold no-print">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-                            </svg>
-                            <span>Imprimir Cupom</span>
-                        </button>
+                        <h2 class="text-[10px] font-black tracking-widest uppercase text-slate-400 dark:text-slate-500">Métricas Estatísticas</h2>
+                        <div class="flex space-x-1.5">
+                            <button onclick="copiarResumoTextual()" class="p-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-all flex items-center space-x-1 text-[10px] font-bold" title="Copiar em formato texto">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m-5 5h6m-6 4h6m-6 4h3" />
+                                </svg>
+                                <span>Copiar Resumo</span>
+                            </button>
+                            <button onclick="imprimirCupom()" class="p-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-all flex items-center space-x-1 text-[10px] font-bold" title="Imprimir Cupom Térmico">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                                </svg>
+                                <span>Imprimir</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Faturamento Estimado Dinâmico (Grande destaque exigido) -->
+                    <div class="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 dark:from-emerald-950/30 dark:to-teal-950/30 border border-emerald-500/20 rounded-2xl p-4 flex items-center justify-between">
+                        <div>
+                            <span class="block text-[8px] text-emerald-600 dark:text-emerald-400 font-extrabold uppercase tracking-widest">FATURAMENTO BRUTO ESTIMADO</span>
+                            <span id="textFaturamentoEstimado" class="block text-2xl font-black text-emerald-600 dark:text-emerald-400 mt-1">R$ 0,00</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[8px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">Aproveitado</span>
+                            <span id="textRendimentoKG" class="block text-sm font-black text-slate-750 dark:text-slate-200 mt-0.5">0.00 kg</span>
+                        </div>
                     </div>
 
                     <!-- Donut Chart & Legend -->
                     <div class="flex items-center justify-around bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-100/50 dark:border-slate-800/30">
-                        <div class="relative w-28 h-28 flex items-center justify-center">
+                        <div class="relative w-24 h-24 flex items-center justify-center">
                             <svg class="absolute w-full h-full transform -rotate-90">
-                                <circle cx="56" cy="56" r="48" stroke-width="8" stroke="currentColor" class="text-slate-200 dark:text-slate-850" fill="transparent" />
-                                <circle id="donutIndicator" cx="56" cy="56" r="48" stroke-width="10" stroke-dasharray="301.6" stroke-dashoffset="301.6" stroke-linecap="round" stroke="currentColor" class="text-emerald-500 transition-all duration-700" fill="transparent" />
+                                <circle cx="48" cy="48" r="40" stroke-width="6" stroke="currentColor" class="text-slate-200 dark:text-slate-850" fill="transparent" />
+                                <circle id="donutIndicator" cx="48" cy="48" r="40" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round" stroke="currentColor" class="text-emerald-500 transition-all duration-700" fill="transparent" />
                             </svg>
                             <div class="text-center z-10">
-                                <span id="donutPercent" class="block text-xl font-black text-slate-850 dark:text-white">0%</span>
-                                <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Aproveit.</span>
+                                <span id="donutPercent" class="block text-lg font-black text-slate-850 dark:text-white">0%</span>
+                                <span class="text-[8px] text-slate-400 font-bold uppercase tracking-wider">Aproveit.</span>
                             </div>
                         </div>
 
-                        <div class="space-y-3">
+                        <div class="space-y-2">
                             <div>
-                                <span class="flex items-center space-x-1.5 text-[9px] text-slate-400 font-bold uppercase tracking-wider">
-                                    <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
-                                    <span>Carne Limpa</span>
+                                <span class="flex items-center space-x-1 text-[8px] text-slate-400 font-bold uppercase tracking-wider">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>
+                                    <span>Carne de Primeira/Segunda</span>
                                 </span>
-                                <span id="textCarneLimpa" class="block text-sm font-black text-slate-900 dark:text-white">0,00 kg</span>
+                                <span id="textCarneLimpa" class="block text-xs font-black text-slate-900 dark:text-white">0,00 kg</span>
                             </div>
                             <div>
-                                <span class="flex items-center space-x-1.5 text-[9px] text-slate-400 font-bold uppercase tracking-wider">
-                                    <span class="w-2 h-2 rounded-full bg-brand-500 inline-block"></span>
-                                    <span>Desperdício</span>
+                                <span class="flex items-center space-x-1 text-[8px] text-slate-400 font-bold uppercase tracking-wider">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand-500 inline-block"></span>
+                                    <span>Perda por Quebra / Ossos</span>
                                 </span>
-                                <span id="textDesperdicio" class="block text-sm font-black text-slate-900 dark:text-white">0,00 kg</span>
+                                <span id="textDesperdicio" class="block text-xs font-black text-slate-900 dark:text-white">0,00 kg</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Lista de Cortes Detalhados Estimativos -->
-                    <div class="border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden">
-                        <div class="bg-slate-50 dark:bg-slate-950 px-4 py-3 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between text-[10px] font-black tracking-widest text-slate-400 dark:text-slate-500 uppercase">
-                            <span>Estimativa de Cortes</span>
-                            <span id="labelCortesCount">0 Itens</span>
+                    <!-- Tabela Estilo SaaS com rolagem interna apenas para os cortes -->
+                    <div class="border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden flex flex-col">
+                        <div class="bg-slate-50 dark:bg-slate-950 px-4 py-2.5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between text-[9px] font-black tracking-widest text-slate-400 dark:text-slate-500 uppercase">
+                            <span>23 Cortes de Abate do Açougue</span>
+                            <span id="labelCortesCount">0 Cortes</span>
                         </div>
-                        <div id="calculadoraCortesContainer" class="p-3 space-y-2 max-h-[300px] overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/40">
-                            <!-- Preenchido dinamicamente por JS -->
-                            <div class="text-center py-6 text-xs font-bold text-slate-400 dark:text-slate-500">Introduza o peso bruto para calcular.</div>
+                        <div id="calculadoraCortesContainer" class="p-2 space-y-1 overflow-y-auto max-h-[300px] divide-y divide-slate-100 dark:divide-slate-800/40">
+                            <!-- Inserido dinamicamente via JS -->
+                            <div class="text-center py-6 text-xs font-bold text-slate-400 dark:text-slate-500">Introduza o peso de abate para ver faturamento detalhado.</div>
                         </div>
                     </div>
                 </div>
@@ -321,117 +351,119 @@
         </div> <!-- FIM DO view-calculadora -->
 
         <!-- VIEW 2: PLANILHA DE LOGS -->
-        <div id="view-planilha" class="tab-view tab-inactive max-w-6xl mx-auto w-full px-4 py-6 flex flex-col flex-grow">
-            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-6 shadow-sm flex flex-col flex-grow space-y-4">
-                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4 flex-wrap gap-2">
+        <div id="view-planilha" class="tab-view tab-inactive w-full px-4 flex flex-col space-y-4">
+            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-5 shadow-sm flex flex-col space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3 flex-wrap gap-2">
                     <div>
-                        <h2 class="text-xs font-black tracking-widest uppercase text-slate-400 dark:text-slate-500">Planilha de Logs do Sistema</h2>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Registros de todas as desossas e rendimentos salvos.</p>
+                        <h2 class="text-xs font-black tracking-widest uppercase text-slate-400 dark:text-slate-500">Planilha de logs e Auditoria</h2>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">Planilha para conferência histórica e exportação direta.</p>
                     </div>
 
                     <div class="flex items-center space-x-2">
-                        <button onclick="exportarCSV()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold tracking-wider uppercase flex items-center space-x-1.5 transition-all">
+                        <button onclick="exportarCSV()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold tracking-wider uppercase flex items-center space-x-1.5 transition-all">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
-                            <span>Exportar CSV</span>
+                            <span>Exportar CSV (Excel)</span>
                         </button>
-                        <button onclick="confirmarZerarLogs()" class="px-4 py-2 border border-brand-500 text-brand-600 dark:text-brand-500 hover:bg-brand-50/50 dark:hover:bg-brand-950/20 rounded-xl text-xs font-bold tracking-wider uppercase transition-all">
-                            Apagar Logs
+                        <button onclick="confirmarZerarLogs()" class="px-3.5 py-2 border border-brand-500 text-brand-600 dark:text-brand-500 hover:bg-brand-50/50 dark:hover:bg-brand-950/20 rounded-xl text-xs font-bold tracking-wider uppercase transition-all">
+                            Zerar Log
                         </button>
                     </div>
                 </div>
 
-                <!-- Busca / Filtros -->
-                <div class="flex items-center justify-between flex-wrap gap-2 bg-slate-50 dark:bg-slate-950 p-3 rounded-2xl border border-slate-200/50 dark:border-slate-800/40">
+                <!-- Barra de pesquisa da planilha -->
+                <div class="flex items-center justify-between flex-wrap gap-2 bg-slate-50 dark:bg-slate-950 p-2.5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40">
                     <div class="relative w-full sm:w-72">
-                        <input type="text" id="spreadsheetSearch" oninput="renderSpreadsheet()" placeholder="Pesquisar por Operador ou Fornecedor..." class="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs font-semibold text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
+                        <input type="text" id="spreadsheetSearch" oninput="renderSpreadsheet()" placeholder="Filtrar por Responsável ou Fornecedor..." class="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs font-semibold text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </span>
                     </div>
-                    <span id="spreadsheetCount" class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">0 Registros Encontrados</span>
+                    <span id="spreadsheetCount" class="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">0 Registros</span>
                 </div>
 
-                <!-- Planilha / Tabela de Logs Responsiva -->
-                <div class="border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden flex-grow flex flex-col bg-white dark:bg-slate-900 shadow-inner">
-                    <div class="overflow-x-auto overflow-y-auto max-h-[480px]">
-                        <table class="w-full text-left border-collapse text-xs font-bold">
-                            <thead>
-                                <tr class="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800/80 text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                                    <th class="px-4 py-3">Lançamento / Data</th>
-                                    <th class="px-4 py-3">Peça Base</th>
-                                    <th class="px-4 py-3">Peso Bruto</th>
-                                    <th class="px-4 py-3">Rendimento (Limpa)</th>
-                                    <th class="px-4 py-3">Desperdício</th>
-                                    <th class="px-4 py-3">Responsável</th>
-                                    <th class="px-4 py-3">Fornecedor</th>
-                                    <th class="px-4 py-3 text-right">Ação</th>
+                <!-- Planilha / Grid de dados clássica -->
+                <div class="border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 shadow-inner overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs font-bold min-w-[850px]">
+                            <thead class="bg-slate-50 dark:bg-slate-950">
+                                <tr class="border-b border-slate-200 dark:border-slate-800/80 text-[9px] text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                                    <th class="px-4 py-2.5">Abate / Data</th>
+                                    <th class="px-4 py-2.5">Peça Comprada</th>
+                                    <th class="px-4 py-2.5 text-right">Peso Entrada</th>
+                                    <th class="px-4 py-2.5 text-right">Carne Aproveitada</th>
+                                    <th class="px-4 py-2.5 text-right">Desperdiçado</th>
+                                    <th class="px-4 py-2.5 text-right">Faturamento Est.</th>
+                                    <th class="px-4 py-2.5">Operador</th>
+                                    <th class="px-4 py-2.5">Fornecedor</th>
+                                    <th class="px-4 py-2.5 text-right">Ação</th>
                                 </tr>
                             </thead>
                             <tbody id="spreadsheetBody" class="divide-y divide-slate-100 dark:divide-slate-800/50">
-                                <!-- Preenchido dinamicamente via JS -->
+                                <!-- Preenchido via JS -->
                             </tbody>
                         </table>
-                    </div>
-                    <div id="spreadsheetEmptyState" class="hidden text-center py-12 text-slate-400 font-bold text-xs uppercase tracking-wider bg-slate-50/50 dark:bg-slate-950/20">
-                        Nenhum registro de log encontrado para exibir.
+                        <div id="spreadsheetEmptyState" class="hidden text-center py-12 text-slate-400 font-bold text-xs uppercase tracking-wider bg-slate-50/50 dark:bg-slate-950/20 flex flex-col items-center justify-center">
+                            Nenhum registro de log encontrado para exibir.
+                        </div>
                     </div>
                 </div>
             </div>
         </div> <!-- FIM DO view-planilha -->
 
         <!-- VIEW 3: CONFIGURAÇÕES -->
-        <div id="view-configuracoes" class="tab-view tab-inactive max-w-6xl mx-auto w-full px-4 py-6 grid grid-cols-1 md:grid-cols-12 gap-6 flex-grow">
-            <!-- Seção: Perfil do Açougue (Cabeçalhos e títulos) -->
-            <section class="md:col-span-5 space-y-6">
-                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-6 shadow-sm space-y-4">
-                    <div class="border-b border-slate-100 dark:border-slate-800 pb-3">
+        <div id="view-configuracoes" class="tab-view tab-inactive w-full px-4 grid grid-cols-1 md:grid-cols-12 gap-6">
+            
+            <!-- Seção: Perfil do Açougue -->
+            <section class="md:col-span-4 space-y-4">
+                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-5 shadow-sm space-y-3">
+                    <div class="border-b border-slate-100 dark:border-slate-800 pb-2">
                         <h2 class="text-xs font-black tracking-widest uppercase text-slate-400 dark:text-slate-500">Perfil do Açougue</h2>
                     </div>
 
-                    <form id="shopProfileForm" onsubmit="salvarPerfilAcougue(event)" class="space-y-4">
+                    <form id="shopProfileForm" onsubmit="salvarPerfilAcougue(event)" class="space-y-3">
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase mb-1.5">Nome Comercial do Açougue</label>
-                            <input type="text" id="shopName" required placeholder="Ex: Casa de Carnes Boi de Ouro" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs font-bold text-slate-850 dark:text-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
+                            <label class="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase mb-1">Nome do Estabelecimento</label>
+                            <input type="text" id="shopName" required placeholder="Ex: Casa de Carnes Boi de Ouro" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs font-bold text-slate-850 dark:text-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                         </div>
 
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase mb-1.5">Slogan / Subtítulo</label>
-                            <input type="text" id="shopSlogan" placeholder="Ex: Carnes Nobres e Selecionadas" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs font-bold text-slate-850 dark:text-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
+                            <label class="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase mb-1">Slogan Comercial</label>
+                            <input type="text" id="shopSlogan" placeholder="Ex: Carnes de Primeira Qualidade" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs font-bold text-slate-850 dark:text-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                         </div>
 
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase mb-1.5">Telefone de Contato</label>
-                            <input type="text" id="shopPhone" placeholder="(00) 00000-0000" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs font-bold text-slate-850 dark:text-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
+                            <label class="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase mb-1">Telefone Comercial</label>
+                            <input type="text" id="shopPhone" placeholder="(00) 00000-0000" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs font-bold text-slate-850 dark:text-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                         </div>
 
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase mb-1.5">Endereço Comercial</label>
-                            <input type="text" id="shopAddress" placeholder="Rua das Carnes, 123 - Centro" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs font-bold text-slate-850 dark:text-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
+                            <label class="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase mb-1">Endereço Comercial</label>
+                            <input type="text" id="shopAddress" placeholder="Rua Central, 123 - Centro" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs font-bold text-slate-850 dark:text-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                         </div>
 
-                        <div class="pt-2">
-                            <button type="submit" class="w-full py-3 bg-gradient-to-r from-brand-600 to-brand-500 text-white rounded-xl text-xs font-bold tracking-wider uppercase shadow-md hover:shadow-lg transition-all">Salvar Perfil</button>
+                        <div class="pt-1">
+                            <button type="submit" class="w-full py-2 bg-gradient-to-r from-brand-600 to-brand-500 text-white rounded-xl text-xs font-bold tracking-wider uppercase shadow-md hover:shadow-lg transition-all">Salvar Configurações</button>
                         </div>
                     </form>
                 </div>
             </section>
 
-            <!-- Seção: Ajustes de Fórmulas e Rendimentos -->
-            <section class="md:col-span-7 space-y-6">
-                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-6 shadow-sm space-y-4">
-                    <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3 flex-wrap gap-2">
-                        <h2 class="text-xs font-black tracking-widest uppercase text-slate-400 dark:text-slate-500">Porcentagens de Rendimento (Fórmula)</h2>
-                        <button onclick="resetYieldsToDefault()" class="text-[10px] font-bold text-brand-500 uppercase tracking-wider hover:underline">Restaurar Padrões</button>
+            <!-- Seção: Ajustes de Fórmulas de Rendimento e Preço por Corte -->
+            <section class="md:col-span-8 space-y-4">
+                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-5 shadow-sm space-y-3">
+                    <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2 flex-wrap gap-2">
+                        <h2 class="text-xs font-black tracking-widest uppercase text-slate-400 dark:text-slate-500">Configurar Preço & Porcentagem por Corte</h2>
+                        <button onclick="resetYieldsToDefault()" class="text-[9px] font-bold text-brand-500 uppercase tracking-wider hover:underline">Restaurar Valores de Fábrica</button>
                     </div>
 
-                    <!-- Seletor da Peça para Configuração de Porcentagens -->
+                    <!-- Escolha da peça para alterar as fórmulas -->
                     <div>
-                        <label class="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase mb-1.5">Escolha a Peça para Configurar</label>
-                        <select id="yieldPecaSelector" onchange="loadYieldConfig()" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs font-bold text-slate-850 dark:text-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 outline-none transition-all cursor-pointer">
+                        <label class="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase mb-1">Selecione a Peça de Abate</label>
+                        <select id="yieldPecaSelector" onchange="loadYieldConfig()" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs font-bold text-slate-850 dark:text-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 outline-none transition-all cursor-pointer">
                             <option value="boi_inteiro">🐮 Carcaça de Boi Inteiro</option>
                             <option value="dianteiro">🥩 Dianteiro Bovino</option>
                             <option value="traseiro">🍖 Traseiro Bovino</option>
@@ -440,15 +472,22 @@
                         </select>
                     </div>
 
-                    <!-- Editor Dinâmico de Percentual -->
+                    <!-- Inputs editáveis de porcentagem e preço -->
                     <form id="yieldForm" onsubmit="salvarYieldConfig(event)" class="space-y-3">
-                        <div id="yieldFieldsContainer" class="space-y-2 max-h-[300px] overflow-y-auto pr-1">
-                            <!-- JS Dynamic fields input list -->
+                        <!-- Cabeçalho das Colunas -->
+                        <div class="grid grid-cols-12 gap-2 px-2 text-[8px] font-black tracking-widest text-slate-400 uppercase">
+                            <div class="col-span-6">Corte Bovino</div>
+                            <div class="col-span-3 text-right">Rendimento (%)</div>
+                            <div class="col-span-3 text-right">Preço por KG (R$)</div>
                         </div>
 
-                        <div class="border-t border-slate-100 dark:border-slate-800 pt-3 flex items-center justify-between">
+                        <div id="yieldFieldsContainer" class="space-y-1.5 overflow-y-auto max-h-[350px] pr-1">
+                            <!-- Inserido dinamicamente via JS -->
+                        </div>
+
+                        <div class="border-t border-slate-100 dark:border-slate-800 pt-2 flex items-center justify-between">
                             <span id="yieldSumCheck" class="text-xs font-bold text-emerald-500">Soma: 100%</span>
-                            <button type="submit" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-850 dark:bg-slate-800 dark:hover:bg-slate-700 text-white rounded-xl text-xs font-bold tracking-wider uppercase transition-all">Salvar Rendimentos</button>
+                            <button type="submit" class="px-4 py-2 bg-slate-900 hover:bg-slate-850 dark:bg-slate-800 dark:hover:bg-slate-700 text-white rounded-xl text-xs font-bold tracking-wider uppercase transition-all">Salvar Fórmulas</button>
                         </div>
                     </form>
                 </div>
@@ -457,16 +496,16 @@
     </div> <!-- FIM DO WRAPPER -->
 
     <!-- Rodapé -->
-    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800/80 py-4 mt-auto text-center text-[10px] text-slate-400 dark:text-slate-500 no-print pb-28 md:pb-4">
-        <p>© 2026 <span class="footer-shop-name font-bold">DesossaPro</span> • Todos os direitos reservados.</p>
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800/80 py-3 mt-auto text-center text-[10px] text-slate-400 dark:text-slate-500 no-print">
+        <p>© 2026 <span class="footer-shop-name font-bold">DesossaPro</span> • Sistema de Abate para Açougues Profissionais.</p>
     </footer>
 
-    <!-- ÁREA OCULTA PARA IMPRESSÃO DE NOTAS DE CRÉDITO / RENDIMENTO -->
+    <!-- ÁREA SECRETA EXCLUSIVA PARA GERAÇÃO E IMPRESSÃO DE CUPONS E HISTÓRICOS -->
     <div id="printArea" class="hidden p-6 bg-white text-black">
         <div class="max-w-xs mx-auto border border-black p-4 text-xs font-mono space-y-4">
             <div class="text-center border-b border-dashed border-black pb-2">
                 <h2 id="printShopName" class="text-sm font-bold uppercase">DESOSSAPRO PREMIUM</h2>
-                <p id="printShopSlogan" class="text-[9px] text-gray-500 uppercase">SISTEMA DE CONTROLE DE DESOSSA</p>
+                <p id="printShopSlogan" class="text-[9px] text-gray-500 uppercase">CONTROLE DE RENDIMENTO & RECEITA</p>
                 <p id="printShopPhone" class="text-[9px] text-gray-500"></p>
                 <p id="printShopAddress" class="text-[9px] text-gray-500"></p>
                 <p class="text-[9px] mt-1" id="printData"></p>
@@ -475,7 +514,7 @@
             <div class="space-y-1">
                 <p><strong>OPERADOR:</strong> <span id="printResponsavel"></span></p>
                 <p><strong>FRIGORÍFICO:</strong> <span id="printFornecedor"></span></p>
-                <p><strong>PEÇA DE ORIGEM:</strong> <span id="printPeca"></span></p>
+                <p><strong>PEÇA BASE:</strong> <span id="printPeca"></span></p>
             </div>
 
             <div class="border-t border-b border-dashed border-black py-2 font-bold text-sm flex justify-between">
@@ -483,12 +522,18 @@
                 <span id="printPesoBruto"></span>
             </div>
 
+            <div class="font-bold text-sm flex justify-between bg-gray-150 p-1.5 rounded">
+                <span>FATURAMENTO ESTIMADO:</span>
+                <span id="printFaturamento"></span>
+            </div>
+
             <table class="w-full text-left text-[10px] border-collapse">
                 <thead>
                     <tr class="border-b border-black">
-                        <th class="py-1">Corte / Componente</th>
-                        <th class="py-1 text-right">Rend.%</th>
-                        <th class="py-1 text-right">Peso Est.</th>
+                        <th class="py-1">Corte</th>
+                        <th class="py-1 text-right">Rend. %</th>
+                        <th class="py-1 text-right">Preço/KG</th>
+                        <th class="py-1 text-right">Valor R$</th>
                     </tr>
                 </thead>
                 <tbody id="printTableBody">
@@ -497,151 +542,198 @@
             </table>
 
             <div class="border-t border-dashed border-black pt-2 text-center text-[9px] space-y-1">
-                <p>Este documento é estimativo com base em dados de abate.</p>
-                <p>Agradecemos a confiança em nossos serviços!</p>
+                <p>Este cupom é uma ferramenta de auditoria de rendimento.</p>
+                <p>Agradecemos a preferência!</p>
             </div>
         </div>
     </div>
 
-    <!-- SCRIPT DE INICIALIZAÇÃO E REGRAS DE NEGÓCIO -->
+    <!-- SCRIPT TÉCNICO DE GESTÃO, CONTROLE E CÁLCULO DE AUDITORIA -->
     <script>
-        // Tabelas de Porcentagens Padrão de Rendimento Comercial de Fábrica (Backup)
+        // Tabelas de Porcentagens de Rendimento baseada nos cortes requisitados pelo cliente
+        // Cada corte tem a porcentagem padrão e seu respectivo preço comercial por KG
+        // Nota: As porcentagens somam 100% de aproveitamento/desperdício por peça
         const defaultRendimentoTabelas = {
             boi_inteiro: [
-                { nome: "Picanha", percentual: 1.5, desperdicio: false },
-                { nome: "Filé Mignon", percentual: 1.2, desperdicio: false },
-                { nome: "Alcatra", percentual: 4.8, desperdicio: false },
-                { nome: "Contra-Filé", percentual: 6.5, desperdicio: false },
-                { nome: "Coxão Mole", percentual: 12.0, desperdicio: false },
-                { nome: "Coxão Duro", percentual: 9.5, desperdicio: false },
-                { nome: "Patinho", percentual: 8.5, desperdicio: false },
-                { nome: "Músculo Traseiro", percentual: 4.0, desperdicio: false },
-                { nome: "Paleta Dianteira", percentual: 7.2, desperdicio: false },
-                { nome: "Acém (Pescoço)", percentual: 11.5, desperdicio: false },
-                { nome: "Peito Bovino", percentual: 5.8, desperdicio: false },
-                { nome: "Costela Bovina", percentual: 10.5, desperdicio: false },
-                { nome: "Retalhos / Carnes Diversas", percentual: 5.0, desperdicio: false },
-                { nome: "Ossos (Desperdício)", percentual: 9.0, desperdicio: true },
-                { nome: "Sebo & Quebra (Desperdício)", percentual: 3.0, desperdicio: true }
+                { nome: "Picanha", percentual: 2.0, preco: 59.99, desperdicio: false },
+                { nome: "Filé Mignon", percentual: 1.5, preco: 58.99, desperdicio: false },
+                { nome: "Alcatra", percentual: 5.5, preco: 44.99, desperdicio: false },
+                { nome: "Alcatra c/ Maminha", percentual: 4.0, preco: 41.99, desperdicio: false },
+                { nome: "Contra Filé", percentual: 7.0, preco: 49.99, desperdicio: false },
+                { nome: "Coxão Mole", percentual: 11.5, preco: 37.99, desperdicio: false },
+                { nome: "Patinho", percentual: 9.0, preco: 31.99, desperdicio: false },
+                { nome: "Coxão Duro", percentual: 8.5, preco: 32.99, desperdicio: false },
+                { nome: "Fraldinha", percentual: 2.5, preco: 39.99, desperdicio: false },
+                { nome: "Paleta s/ Osso", percentual: 6.5, preco: 34.99, desperdicio: false },
+                { nome: "Músculo", percentual: 4.5, preco: 26.99, desperdicio: false },
+                { nome: "Moída de Segunda", percentual: 5.0, preco: 19.99, desperdicio: false },
+                { nome: "Bisteca", percentual: 3.5, preco: 32.99, desperdicio: false },
+                { nome: "Bife Especial", percentual: 3.0, preco: 29.99, desperdicio: false },
+                { nome: "Costela Mindinha", percentual: 4.0, preco: 24.99, desperdicio: false },
+                { nome: "Costela Ripa", percentual: 4.5, preco: 21.99, desperdicio: false },
+                { nome: "Pescoço", percentual: 3.5, preco: 12.99, desperdicio: false },
+                { nome: "Paleta c/ Osso", percentual: 3.0, preco: 21.99, desperdicio: false },
+                { nome: "Agulha", percentual: 3.0, preco: 21.99, desperdicio: false },
+                { nome: "Peito", percentual: 3.0, preco: 19.99, desperdicio: false },
+                { nome: "Bistecão da Agulha", percentual: 2.5, preco: 23.99, desperdicio: false },
+                { nome: "Canela p/ Inteira", percentual: 1.0, preco: 12.99, desperdicio: false },
+                { nome: "Canela de Bandeja", percentual: 1.5, preco: 19.99, desperdicio: false },
+                { nome: "Ossos & Desperdício (Quebra)", percentual: 10.0, preco: 0.00, desperdicio: true }
             ],
             dianteiro: [
-                { nome: "Paleta Dianteira Limpa", percentual: 18.0, desperdicio: false },
-                { nome: "Acém", percentual: 28.5, desperdicio: false },
-                { nome: "Pescoço", percentual: 12.0, desperdicio: false },
-                { nome: "Peito Bovino", percentual: 14.5, desperdicio: false },
-                { nome: "Costela de Dianteiro", percentual: 11.0, desperdicio: false },
-                { nome: "Ossos Descarte (Desperdício)", percentual: 11.5, desperdicio: true },
-                { nome: "Sebo / Limpeza (Desperdício)", percentual: 4.5, desperdicio: true }
+                { nome: "Paleta s/ Osso", percentual: 15.0, preco: 34.99, desperdicio: false },
+                { nome: "Moída de Segunda", percentual: 12.0, preco: 19.99, desperdicio: false },
+                { nome: "Costela Ripa", percentual: 15.0, preco: 21.99, desperdicio: false },
+                { nome: "Pescoço", percentual: 11.5, preco: 12.99, desperdicio: false },
+                { nome: "Paleta c/ Osso", percentual: 10.0, preco: 21.99, desperdicio: false },
+                { nome: "Agulha", percentual: 9.0, preco: 21.99, desperdicio: false },
+                { nome: "Peito", percentual: 10.0, preco: 19.99, desperdicio: false },
+                { nome: "Bistecão da Agulha", percentual: 7.5, preco: 23.99, desperdicio: false },
+                { nome: "Ossos & Descarte (Quebra)", percentual: 10.0, preco: 0.00, desperdicio: true }
             ],
             traseiro: [
-                { nome: "Picanha", percentual: 3.0, desperdicio: false },
-                { nome: "Filé Mignon", percentual: 2.4, desperdicio: false },
-                { nome: "Alcatra", percentual: 9.6, desperdicio: false },
-                { nome: "Contra-Filé", percentual: 13.0, desperdicio: false },
-                { nome: "Coxão Mole", percentual: 24.0, desperdicio: false },
-                { nome: "Coxão Duro", percentual: 19.0, desperdicio: false },
-                { nome: "Patinho", percentual: 17.0, desperdicio: false },
-                { nome: "Músculo Traseiro", percentual: 8.0, desperdicio: false },
-                { nome: "Ossos do Traseiro (Desperdício)", percentual: 3.0, desperdicio: true },
-                { nome: "Sebo / Limpeza (Desperdício)", percentual: 1.0, desperdicio: true }
+                { nome: "Picanha", percentual: 5.5, preco: 59.99, desperdicio: false },
+                { nome: "Filé Mignon", percentual: 4.5, preco: 58.99, desperdicio: false },
+                { nome: "Alcatra", percentual: 13.0, preco: 44.99, desperdicio: false },
+                { nome: "Alcatra c/ Maminha", percentual: 10.0, preco: 41.99, desperdicio: false },
+                { nome: "Contra Filé", percentual: 16.5, preco: 49.99, desperdicio: false },
+                { nome: "Coxão Mole", percentual: 18.0, preco: 37.99, desperdicio: false },
+                { nome: "Patinho", percentual: 12.5, preco: 31.99, desperdicio: false },
+                { nome: "Coxão Duro", percentual: 11.0, preco: 32.99, desperdicio: false },
+                { nome: "Fraldinha", percentual: 4.5, preco: 39.99, desperdicio: false },
+                { nome: "Músculo Traseiro", percentual: 3.5, preco: 26.99, desperdicio: false },
+                { nome: "Canela p/ Inteira", percentual: 0.5, preco: 12.99, desperdicio: false },
+                { nome: "Canela de Bandeja", percentual: 0.5, preco: 19.99, desperdicio: false },
+                { nome: "Ossos & Perda Comercial", percentual: 0.0, preco: 0.00, desperdicio: true }
             ],
             banda_direita: [
-                { nome: "Cortes Nobres do Traseiro", percentual: 14.0, desperdicio: false },
-                { nome: "Cortes de Primeira", percentual: 37.2, desperdicio: false },
-                { nome: "Cortes de Segunda", percentual: 36.8, desperdicio: false },
-                { nome: "Ossos do Esqueleto (Desperdício)", percentual: 9.0, desperdicio: true },
-                { nome: "Sebo / Limpeza (Desperdício)", percentual: 3.0, desperdicio: true }
+                { nome: "Picanha", percentual: 2.0, preco: 59.99, desperdicio: false },
+                { nome: "Filé Mignon", percentual: 1.5, preco: 58.99, desperdicio: false },
+                { nome: "Alcatra", percentual: 5.5, preco: 44.99, desperdicio: false },
+                { nome: "Alcatra c/ Maminha", percentual: 4.0, preco: 41.99, desperdicio: false },
+                { nome: "Contra Filé", percentual: 7.0, preco: 49.99, desperdicio: false },
+                { nome: "Coxão Mole", percentual: 11.5, preco: 37.99, desperdicio: false },
+                { nome: "Patinho", percentual: 9.0, preco: 31.99, desperdicio: false },
+                { nome: "Coxão Duro", percentual: 8.5, preco: 32.99, desperdicio: false },
+                { nome: "Fraldinha", percentual: 2.5, preco: 39.99, desperdicio: false },
+                { nome: "Paleta s/ Osso", percentual: 6.5, preco: 34.99, desperdicio: false },
+                { nome: "Músculo", percentual: 4.5, preco: 26.99, desperdicio: false },
+                { nome: "Moída de Segunda", percentual: 5.0, preco: 19.99, desperdicio: false },
+                { nome: "Bisteca", percentual: 3.5, preco: 32.99, desperdicio: false },
+                { nome: "Bife Especial", percentual: 3.0, preco: 29.99, desperdicio: false },
+                { nome: "Costela Mindinha", percentual: 4.0, preco: 24.99, desperdicio: false },
+                { nome: "Costela Ripa", percentual: 4.5, preco: 21.99, desperdicio: false },
+                { nome: "Pescoço", percentual: 3.5, preco: 12.99, desperdicio: false },
+                { nome: "Paleta c/ Osso", percentual: 3.0, preco: 21.99, desperdicio: false },
+                { nome: "Agulha", percentual: 3.0, preco: 21.99, desperdicio: false },
+                { nome: "Peito", percentual: 3.0, preco: 19.99, desperdicio: false },
+                { nome: "Bistecão da Agulha", percentual: 2.5, preco: 23.99, desperdicio: false },
+                { nome: "Canela p/ Inteira", percentual: 1.0, preco: 12.99, desperdicio: false },
+                { nome: "Canela de Bandeja", percentual: 1.5, preco: 19.99, desperdicio: false },
+                { nome: "Ossos & Desperdício (Quebra)", percentual: 10.0, preco: 0.00, desperdicio: true }
             ],
             banda_esquerda: [
-                { nome: "Cortes Nobres do Traseiro", percentual: 14.0, desperdicio: false },
-                { nome: "Cortes de Primeira", percentual: 37.2, desperdicio: false },
-                { nome: "Cortes de Segunda", percentual: 36.8, desperdicio: false },
-                { nome: "Ossos do Esqueleto (Desperdício)", percentual: 9.0, desperdicio: true },
-                { nome: "Sebo / Limpeza (Desperdício)", percentual: 3.0, desperdicio: true }
+                { nome: "Picanha", percentual: 2.0, preco: 59.99, desperdicio: false },
+                { nome: "Filé Mignon", percentual: 1.5, preco: 58.99, desperdicio: false },
+                { nome: "Alcatra", percentual: 5.5, preco: 44.99, desperdicio: false },
+                { nome: "Alcatra c/ Maminha", percentual: 4.0, preco: 41.99, desperdicio: false },
+                { nome: "Contra Filé", percentual: 7.0, preco: 49.99, desperdicio: false },
+                { nome: "Coxão Mole", percentual: 11.5, preco: 37.99, desperdicio: false },
+                { nome: "Patinho", percentual: 9.0, preco: 31.99, desperdicio: false },
+                { nome: "Coxão Duro", percentual: 8.5, preco: 32.99, desperdicio: false },
+                { nome: "Fraldinha", percentual: 2.5, preco: 39.99, desperdicio: false },
+                { nome: "Paleta s/ Osso", percentual: 6.5, preco: 34.99, desperdicio: false },
+                { nome: "Músculo", percentual: 4.5, preco: 26.99, desperdicio: false },
+                { nome: "Moída de Segunda", percentual: 5.0, preco: 19.99, desperdicio: false },
+                { nome: "Bisteca", percentual: 3.5, preco: 32.99, desperdicio: false },
+                { nome: "Bife Especial", percentual: 3.0, preco: 29.99, desperdicio: false },
+                { nome: "Costela Mindinha", percentual: 4.0, preco: 24.99, desperdicio: false },
+                { nome: "Costela Ripa", percentual: 4.5, preco: 21.99, desperdicio: false },
+                { nome: "Pescoço", percentual: 3.5, preco: 12.99, desperdicio: false },
+                { nome: "Paleta c/ Osso", percentual: 3.0, preco: 21.99, desperdicio: false },
+                { nome: "Agulha", percentual: 3.0, preco: 21.99, desperdicio: false },
+                { nome: "Peito", percentual: 3.0, preco: 19.99, desperdicio: false },
+                { nome: "Bistecão da Agulha", percentual: 2.5, preco: 23.99, desperdicio: false },
+                { nome: "Canela p/ Inteira", percentual: 1.0, preco: 12.99, desperdicio: false },
+                { nome: "Canela de Bandeja", percentual: 1.5, preco: 19.99, desperdicio: false },
+                { nome: "Ossos & Desperdício (Quebra)", percentual: 10.0, preco: 0.00, desperdicio: true }
             ]
         };
 
-        // Estado carregado em tempo de execução
-        let rendimentoTabelas = JSON.parse(localStorage.getItem('desossa_yield_config')) || JSON.parse(JSON.stringify(defaultRendimentoTabelas));
+        // Carrega regras de rendimento do LocalStorage
+        let rendimentoTabelas = JSON.parse(localStorage.getItem('desossa_yield_config_v4')) || JSON.parse(JSON.stringify(defaultRendimentoTabelas));
 
         const pecaNomesAmigaveis = {
             boi_inteiro: "Carcaça de Boi Inteiro",
-            dianteiro: "Dianteiro de Bovino",
-            traseiro: "Traseiro de Bovino",
+            dianteiro: "Dianteiro Bovino",
+            traseiro: "Traseiro Bovino",
             banda_direita: "Banda Bovina Direita",
             banda_esquerda: "Banda Bovina Esquerda"
         };
 
         let activePeca = "boi_inteiro";
-        let logsHistorico = JSON.parse(localStorage.getItem('desossa_pro_logs_v5')) || [];
+        let logsHistorico = JSON.parse(localStorage.getItem('desossa_pro_logs_v6')) || [];
 
         // Perfil do Açougue
         const defaultShopProfile = {
-            name: "DesossaPro Premium",
-            slogan: "Sistema Avançado de Rendimento",
-            phone: "(00) 00000-0000",
-            address: "Rua do Açougue, 123 - Centro"
+            name: "DesossaPro Premium Max",
+            slogan: "Gestão Avançada de Carnes & Receita",
+            phone: "(11) 99999-9999",
+            address: "Avenida do Abate, 500 - Setor Industrial"
         };
-        let shopProfile = JSON.parse(localStorage.getItem('desossa_shop_profile')) || defaultShopProfile;
+        let shopProfile = JSON.parse(localStorage.getItem('desossa_shop_profile_v3')) || defaultShopProfile;
 
-        // Inicialização Geral do Aplicativo
-        window.addEventListener('load', () => {
+        // Inicialização do Sistema
+        window.onload = function() {
             detectSystemTheme();
             applyShopProfile();
             selectPeca('boi_inteiro');
-            renderLogs();
             renderSpreadsheet();
             loadYieldConfig();
             switchTab('calculadora');
-        });
+        };
 
-        // Alternar Visualização entre as Abas
+        // Alternador de Abas de Navegação (Fluido e Responsivo)
         window.switchTab = function(tabId) {
             const tabs = ['calculadora', 'planilha', 'configuracoes'];
-            
             tabs.forEach(id => {
                 const view = document.getElementById(`view-${id}`);
                 const btn = document.getElementById(`tab-${id}`);
                 
                 if (id === tabId) {
-                    // Ativa a aba atual removendo qualquer resquício de invisibilidade
-                    view.classList.remove('tab-inactive', 'hidden');
+                    view.classList.remove('tab-inactive');
                     view.classList.add('tab-active');
-                    
-                    // Altera a cor e as bordas (borda no topo para mobile e inferior para desktop)
                     btn.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
                     btn.classList.add('border-brand-500', 'text-brand-600', 'dark:text-brand-500');
                 } else {
-                    // Desativa as outras abas suavemente
                     view.classList.remove('tab-active');
                     view.classList.add('tab-inactive');
-                    
                     btn.classList.remove('border-brand-500', 'text-brand-600', 'dark:text-brand-500');
                     btn.classList.add('border-transparent', 'text-slate-500', 'dark:text-slate-400');
                 }
             });
         };
 
-        // Aplicação do perfil do açougue nos campos e layouts
+        // Aplicação de Perfil de Açougue
         function applyShopProfile() {
             document.getElementById('headerShopName').textContent = shopProfile.name;
             document.getElementById('headerShopSlogan').textContent = shopProfile.slogan;
             document.querySelectorAll('.footer-shop-name').forEach(el => el.textContent = shopProfile.name);
 
-            // Campos da aba de configurações
+            // Inputs da página de configurações
             document.getElementById('shopName').value = shopProfile.name;
             document.getElementById('shopSlogan').value = shopProfile.slogan;
             document.getElementById('shopPhone').value = shopProfile.phone;
             document.getElementById('shopAddress').value = shopProfile.address;
 
-            // Template de Impressão
+            // Template de Impressão de Nota Fiscal
             document.getElementById('printShopName').textContent = shopProfile.name;
             document.getElementById('printShopSlogan').textContent = shopProfile.slogan;
             document.getElementById('printShopPhone').textContent = "TEL: " + shopProfile.phone;
             document.getElementById('printShopAddress').textContent = "END: " + shopProfile.address;
         }
 
-        // Salvar Perfil do Açougue
+        // Salvar Perfil do Estabelecimento
         window.salvarPerfilAcougue = function(event) {
             event.preventDefault();
             shopProfile.name = document.getElementById('shopName').value.trim();
@@ -649,12 +741,12 @@
             shopProfile.phone = document.getElementById('shopPhone').value.trim();
             shopProfile.address = document.getElementById('shopAddress').value.trim();
 
-            localStorage.setItem('desossa_shop_profile', JSON.stringify(shopProfile));
+            localStorage.setItem('desossa_shop_profile_v3', JSON.stringify(shopProfile));
             applyShopProfile();
             showToast("Perfil do Açougue atualizado com sucesso!");
         };
 
-        // Detecção e Persistência do Tema Escuro
+        // Controle e Mudança de Tema Escuro
         const btnThemeToggle = document.getElementById('btnThemeToggle');
         const themeIcon = document.getElementById('themeIcon');
 
@@ -681,11 +773,24 @@
                 : `<path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />`;
         }
 
-        // Seleção de Peça de Entrada (Cards & SVG)
+        // Toggle do Desenho do Boi no Celular (Zero Rolagem)
+        window.toggleCowMap = function() {
+            const container = document.getElementById('cowSvgContainer');
+            const toggleText = document.getElementById('btnCowToggleText');
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+                toggleText.textContent = "Ocultar Desenho";
+            } else {
+                container.classList.add('hidden');
+                toggleText.textContent = "Ver Desenho";
+            }
+        };
+
+        // Seleção de Tipo de Peça Base
         window.selectPeca = function(peca) {
             activePeca = peca;
             
-            // Alteração visual dos cards manuais
+            // Alterar cor ativa dos cards
             document.querySelectorAll('.peca-card').forEach(card => {
                 card.classList.remove('border-brand-500', 'bg-brand-50/50', 'dark:bg-brand-950/20');
             });
@@ -694,17 +799,12 @@
                 activeCard.classList.add('border-brand-500', 'bg-brand-50/50', 'dark:bg-brand-950/20');
             }
 
-            // Atualização do rótulo sob o Boi SVG
             document.getElementById('visualLabel').textContent = pecaNomesAmigaveis[peca].toUpperCase();
-
-            // Realce do SVG anatômico
             highlightBoiSVG(peca);
-
-            // Reexecução de Cálculos
             calcularRendimentos();
         };
 
-        // Realce dos caminhos anatômicos no SVG de giz do boi
+        // Mudanças de realce no SVG de Giz do boi
         function highlightBoiSVG(peca) {
             const diant = document.getElementById('svg-dianteiro');
             const costela = document.getElementById('svg-boi_inteiro');
@@ -712,13 +812,13 @@
 
             if (!diant || !costela || !tras) return;
 
-            // Reset geral das partes
+            // Reset
             const defaultClass = "fill-slate-800/70 stroke-slate-500 stroke-[2] cursor-pointer hover:fill-brand-900/35 transition-all duration-300";
             diant.setAttribute('class', defaultClass);
             costela.setAttribute('class', defaultClass);
             tras.setAttribute('class', defaultClass);
 
-            // Destaque Glow no item correspondente
+            // Destaque de brilho
             const activeClass = "fill-brand-900/50 stroke-brand-500 stroke-[2.5] cursor-pointer hover:fill-brand-900/60 transition-all duration-300";
             if (peca === 'boi_inteiro') {
                 diant.setAttribute('class', activeClass);
@@ -735,10 +835,11 @@
             }
         }
 
-        // Cálculo de Rendimento e Renderização em Tempo Real (Calculadora)
+        // Listener dinâmico de digitação de peso bruto
         const pesoBrutoInput = document.getElementById('pesoBruto');
         pesoBrutoInput.addEventListener('input', calcularRendimentos);
 
+        // Função Master de Cálculos de Peso, Desossa, Rendimento e Faturamento
         function calcularRendimentos() {
             const pesoBruto = parseFloat(pesoBrutoInput.value) || 0;
             const tabela = rendimentoTabelas[activePeca] || [];
@@ -747,37 +848,46 @@
                 updateDonutChart(0);
                 document.getElementById('textCarneLimpa').textContent = "0,00 kg";
                 document.getElementById('textDesperdicio').textContent = "0,00 kg";
+                document.getElementById('textFaturamentoEstimado').textContent = "R$ 0,00";
+                document.getElementById('textRendimentoKG').textContent = "0.00 kg";
                 document.getElementById('calculadoraCortesContainer').innerHTML = `
                     <div class="text-center py-6 text-xs font-bold text-slate-400 dark:text-slate-500">Introduza o peso bruto para calcular.</div>
                 `;
-                document.getElementById('labelCortesCount').textContent = "0 Itens";
+                document.getElementById('labelCortesCount').textContent = "0 Cortes";
                 return;
             }
 
             let carneLimpaSoma = 0;
             let desperdicioSoma = 0;
+            let faturamentoTotal = 0;
             let htmlCortes = '';
 
-            tabela.forEach((item, index) => {
+            tabela.forEach(item => {
                 const pesoEstimado = (pesoBruto * item.percentual) / 100;
-                
+                const valorCorte = pesoEstimado * item.preco;
+
                 if (item.desperdicio) {
                     desperdicioSoma += pesoEstimado;
                 } else {
                     carneLimpaSoma += pesoEstimado;
+                    faturamentoTotal += valorCorte;
                 }
 
                 const bulletColor = item.desperdicio ? "bg-brand-500" : "bg-emerald-500";
+                const exibePreco = item.desperdicio ? 'Descarte' : `R$ ${item.preco.toFixed(2)}`;
+                const exibeValor = item.desperdicio ? 'R$ 0,00' : `R$ ${valorCorte.toFixed(2)}`;
 
                 htmlCortes += `
                     <div class="flex items-center justify-between py-2 text-xs font-bold text-slate-700 dark:text-slate-300 px-1 transition-all">
-                        <div class="flex items-center space-x-2">
-                            <span class="w-2.5 h-2.5 ${bulletColor} rounded-full inline-block flex-shrink-0"></span>
-                            <span>${item.nome}</span>
+                        <div class="flex items-center space-x-2 w-1/2">
+                            <span class="w-2 h-2 ${bulletColor} rounded-full inline-block flex-shrink-0"></span>
+                            <span class="truncate">${item.nome}</span>
                         </div>
-                        <div class="flex space-x-4">
-                            <span class="text-slate-400 font-medium">${item.percentual.toFixed(1)}%</span>
-                            <span class="text-slate-900 dark:text-white font-extrabold">${pesoEstimado.toFixed(2).replace('.', ',')} kg</span>
+                        <div class="flex items-center justify-end w-1/2 space-x-3 text-right">
+                            <span class="text-[10px] text-slate-400 font-medium">${item.percentual.toFixed(1)}%</span>
+                            <span class="text-slate-500 dark:text-slate-450 text-[10px]">${exibePreco}</span>
+                            <span class="text-slate-900 dark:text-white font-extrabold text-xs w-20">${pesoEstimado.toFixed(2).replace('.', ',')} kg</span>
+                            <span class="text-emerald-600 dark:text-emerald-400 font-black text-xs w-20">${exibeValor}</span>
                         </div>
                     </div>
                 `;
@@ -788,24 +898,27 @@
 
             document.getElementById('textCarneLimpa').textContent = `${carneLimpaSoma.toFixed(2).replace('.', ',')} kg`;
             document.getElementById('textDesperdicio').textContent = `${desperdicioSoma.toFixed(2).replace('.', ',')} kg`;
+            document.getElementById('textFaturamentoEstimado').textContent = `R$ ${faturamentoTotal.toFixed(2).replace('.', ',')}`;
+            document.getElementById('textRendimentoKG').textContent = `${carneLimpaSoma.toFixed(2).replace('.', ',')} kg`;
+            
             document.getElementById('calculadoraCortesContainer').innerHTML = htmlCortes;
-            document.getElementById('labelCortesCount').textContent = `${tabela.length} Itens`;
+            document.getElementById('labelCortesCount').textContent = `${tabela.length} Cortes`;
         }
 
         function updateDonutChart(percent) {
-            const circumference = 301.59;
+            const circumference = 251.2;
             const offset = circumference - (percent / 100) * circumference;
             document.getElementById('donutIndicator').style.strokeDashoffset = offset;
             document.getElementById('donutPercent').textContent = `${percent.toFixed(0)}%`;
         }
 
-        // Limpar Campos da Calculadora
+        // Limpar os campos da calculadora
         window.limparCampos = function() {
             document.getElementById('desossaForm').reset();
             calcularRendimentos();
         };
 
-        // Salvar Novo Lançamento de Desossa
+        // Salvar histórico de lote processado (Logs)
         window.salvarDesossa = function(event) {
             event.preventDefault();
             const pesoBruto = parseFloat(pesoBrutoInput.value) || 0;
@@ -814,16 +927,18 @@
 
             if (pesoBruto <= 0 || !responsavel || !fornecedor) return;
 
-            // Recalcular para consolidar o salvamento exato
             const tabela = rendimentoTabelas[activePeca];
             let carneLimpa = 0;
             let desperdicio = 0;
+            let faturamento = 0;
+
             tabela.forEach(item => {
                 const peso = (pesoBruto * item.percentual) / 100;
                 if (item.desperdicio) {
                     desperdicio += peso;
                 } else {
                     carneLimpa += peso;
+                    faturamento += (peso * item.preco);
                 }
             });
 
@@ -834,25 +949,20 @@
                 pesoBruto,
                 carneLimpa,
                 desperdicio,
+                faturamento,
                 responsavel,
                 fornecedor
             };
 
             logsHistorico.unshift(novoLog);
-            localStorage.setItem('desossa_pro_logs_v5', JSON.stringify(logsHistorico));
+            localStorage.setItem('desossa_pro_logs_v6', JSON.stringify(logsHistorico));
 
-            renderLogs();
             renderSpreadsheet();
             limparCampos();
-            showToast("Lote de desossa salvo na planilha com sucesso!");
+            showToast("Lote de desossa e faturamento salvos no Log!");
         };
 
-        // Renderizar logs na interface lateral da Calculadora (Se for o caso)
-        function renderLogs() {
-            // Caso deseje sincronizar com outra lista na aba principal (atualmente consolidada na Spreadsheet)
-        }
-
-        // Renderizar tabela de planilha (Aba Planilha)
+        // Renderização da Planilha de Auditoria (Aba Planilha)
         window.renderSpreadsheet = function() {
             const tbody = document.getElementById('spreadsheetBody');
             const emptyState = document.getElementById('spreadsheetEmptyState');
@@ -861,7 +971,7 @@
             if (logsHistorico.length === 0) {
                 tbody.innerHTML = '';
                 emptyState.classList.remove('hidden');
-                document.getElementById('spreadsheetCount').textContent = "0 Registros";
+                document.getElementById('spreadsheetCount').textContent = "0 Lançamentos";
                 return;
             }
 
@@ -872,7 +982,7 @@
                        pecaNomesAmigaveis[log.tipo].toLowerCase().includes(searchVal);
             });
 
-            document.getElementById('spreadsheetCount').textContent = `${logsFiltrados.length} Registros Encontrados`;
+            document.getElementById('spreadsheetCount').textContent = `${logsFiltrados.length} Lançamentos Encontrados`;
 
             if (logsFiltrados.length === 0) {
                 tbody.innerHTML = '';
@@ -883,21 +993,24 @@
             emptyState.classList.add('hidden');
             tbody.innerHTML = logsFiltrados.map(log => {
                 return `
-                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 border-b border-slate-100 dark:border-slate-800/50 transition-colors">
-                        <td class="px-4 py-3 font-semibold text-slate-500 dark:text-slate-400">
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 border-b border-slate-100 dark:border-slate-800/50 transition-colors text-xs font-semibold text-slate-700 dark:text-slate-300">
+                        <td class="px-4 py-2.5 font-bold text-slate-500 dark:text-slate-400">
                             <div>${log.data.split(' ')[0]}</div>
                             <div class="text-[9px] text-slate-400">${log.data.split(' ')[1]}</div>
                         </td>
-                        <td class="px-4 py-3 text-slate-900 dark:text-white font-extrabold">${pecaNomesAmigaveis[log.tipo]}</td>
-                        <td class="px-4 py-3 text-slate-800 dark:text-slate-200 font-extrabold">${log.pesoBruto.toFixed(2).replace('.', ',')} kg</td>
-                        <td class="px-4 py-3 text-emerald-600 dark:text-emerald-400 font-extrabold">${log.carneLimpa.toFixed(2).replace('.', ',')} kg</td>
-                        <td class="px-4 py-3 text-brand-600 dark:text-brand-500 font-extrabold">${log.desperdicio.toFixed(2).replace('.', ',')} kg</td>
-                        <td class="px-4 py-3 text-slate-700 dark:text-slate-300">${log.responsavel}</td>
-                        <td class="px-4 py-3 text-slate-700 dark:text-slate-300">${log.fornecedor}</td>
-                        <td class="px-4 py-3 text-right">
-                            <div class="flex items-center justify-end space-x-1.5">
-                                <button onclick="recuperarLote('${log.id}')" class="px-2 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 rounded-lg transition-all text-[10px]" title="Visualizar na Calculadora">Carregar</button>
-                                <button onclick="deletarLote('${log.id}')" class="px-2 py-1 bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-brand-900/60 rounded-lg transition-all text-[10px]" title="Excluir do Log">Excluir</button>
+                        <td class="px-4 py-2.5 text-slate-900 dark:text-white font-black">${pecaNomesAmigaveis[log.tipo]}</td>
+                        <td class="px-4 py-2.5 text-right font-bold text-slate-800 dark:text-slate-200">${log.pesoBruto.toFixed(2).replace('.', ',')} kg</td>
+                        <td class="px-4 py-2.5 text-right text-emerald-600 dark:text-emerald-400 font-bold">${log.carneLimpa.toFixed(2).replace('.', ',')} kg</td>
+                        <td class="px-4 py-2.5 text-right text-brand-600 dark:text-brand-500 font-bold">${log.desperdicio.toFixed(2).replace('.', ',')} kg</td>
+                        <td class="px-4 py-2.5 text-right text-emerald-600 dark:text-emerald-400 font-extrabold text-xs">R$ ${log.faturamento.toFixed(2).replace('.', ',')}</td>
+                        <td class="px-4 py-2.5 font-medium">${log.responsavel}</td>
+                        <td class="px-4 py-2.5 font-medium">${log.fornecedor}</td>
+                        <td class="px-4 py-2.5 text-right no-print">
+                            <div class="flex items-center justify-end space-x-1">
+                                <button onclick="copiarResumoDeLote('${log.id}')" class="px-2 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 rounded-lg text-[9px] font-bold">Copiar</button>
+                                <button onclick="imprimirCupomDoHistorico('${log.id}')" class="px-2 py-1 bg-brand-500 hover:bg-brand-600 text-white rounded-lg text-[9px] font-bold">Imprimir</button>
+                                <button onclick="recuperarLote('${log.id}')" class="px-2 py-1 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 text-slate-850 dark:text-white rounded-lg text-[9px] font-bold">Carregar</button>
+                                <button onclick="deletarLote('${log.id}')" class="px-2 py-1 bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 hover:bg-brand-100 rounded-lg text-[9px] font-bold">Excluir</button>
                             </div>
                         </td>
                     </tr>
@@ -905,7 +1018,78 @@
             }).join('');
         };
 
-        // Recuperar Lote e carregar na calculadora
+        // Copiar Resumo em Texto da calculadora
+        window.copiarResumoTextual = function() {
+            const pesoBruto = parseFloat(pesoBrutoInput.value) || 0;
+            if (pesoBruto <= 0) {
+                showToast("Sem dados para copiar.");
+                return;
+            }
+            const responsavel = document.getElementById('responsavel').value.trim() || "Operador";
+            const fornecedor = document.getElementById('fornecedor').value.trim() || "Fornecedor";
+            gerarECopiarTexto(pesoBruto, responsavel, fornecedor, activePeca);
+        };
+
+        // Copiar Resumo em Texto de um lote do Log
+        window.copiarResumoDeLote = function(id) {
+            const log = logsHistorico.find(l => l.id === id);
+            if (!log) return;
+            gerarECopiarTexto(log.pesoBruto, log.responsavel, log.fornecedor, log.tipo);
+        };
+
+        function gerarECopiarTexto(pesoBruto, responsavel, fornecedor, tipoPeca) {
+            const tabela = rendimentoTabelas[tipoPeca];
+            let carneLimpa = 0;
+            let desperdicio = 0;
+            let faturamento = 0;
+            let listagemCortes = "";
+
+            tabela.forEach(item => {
+                const pesoCorte = (pesoBruto * item.percentual) / 100;
+                const valorCorte = pesoCorte * item.preco;
+
+                if (item.desperdicio) {
+                    desperdicio += pesoCorte;
+                } else {
+                    carneLimpa += pesoCorte;
+                    faturamento += valorCorte;
+                }
+
+                const textoValor = item.desperdicio ? 'Descarte' : `R$ ${valorCorte.toFixed(2)}`;
+                listagemCortes += `- ${item.nome}: ${pesoCorte.toFixed(2).replace('.', ',')} kg (${item.percentual.toFixed(1)}%) | Valor: ${textoValor}\n`;
+            });
+
+            const percentLimpa = (carneLimpa / pesoBruto) * 100;
+            const percentDesperdicio = (desperdicio / pesoBruto) * 100;
+
+            const textoResumo = `--- RESUMO DE RENDIMENTO & FATURAMENTO ---
+Estabelecimento: ${shopProfile.name.toUpperCase()}
+Data/Hora: ${new Date().toLocaleString('pt-BR')}
+Responsável: ${responsavel}
+Fornecedor: ${fornecedor}
+Peça Base: ${pecaNomesAmigaveis[tipoPeca]}
+PESO BRUTO ENTRADA: ${pesoBruto.toFixed(2).replace('.', ',')} KG
+FATURAMENTO ESTIMADO: R$ ${faturamento.toFixed(2).replace('.', ',')}
+
+APROVEITAMENTO:
+- Carne Limpa: ${carneLimpa.toFixed(2).replace('.', ',')} KG (${percentLimpa.toFixed(1)}%)
+- Perdas/Quebra: ${desperdicio.toFixed(2).replace('.', ',')} KG (${percentDesperdicio.toFixed(1)}%)
+
+DETALHAMENTO DE CORTES ESTIMADO:
+${listagemCortes}
+Emitido eletronicamente via DesossaPro.`;
+
+            const el = document.createElement('textarea');
+            el.value = textoResumo;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            showToast("Resumo copiado com sucesso!");
+        }
+
+        // Recuperar e Carregar Lote na Calculadora
         window.recuperarLote = function(id) {
             const log = logsHistorico.find(l => l.id === id);
             if (!log) return;
@@ -915,15 +1099,50 @@
             pesoBrutoInput.value = log.pesoBruto;
             selectPeca(log.tipo);
 
-            showToast("Dados do lote carregados na Calculadora!");
+            showToast("Dados carregados de volta na Calculadora!");
             switchTab('calculadora');
         };
 
-        // Excluir Lote Específico
+        // Imprimir Lote direto do histórico
+        window.imprimirCupomDoHistorico = function(id) {
+            const log = logsHistorico.find(l => l.id === id);
+            if (!log) return;
+
+            document.getElementById('printData').textContent = `DATA: ${log.data}`;
+            document.getElementById('printResponsavel').textContent = log.responsavel.toUpperCase();
+            document.getElementById('printFornecedor').textContent = log.fornecedor.toUpperCase();
+            document.getElementById('printPeca').textContent = pecaNomesAmigaveis[log.tipo].toUpperCase();
+            document.getElementById('printPesoBruto').textContent = `${log.pesoBruto.toFixed(2).replace('.', ',')} KG`;
+            document.getElementById('printFaturamento').textContent = `R$ ${log.faturamento.toFixed(2).replace('.', ',')}`;
+
+            // Tabela do Cupom
+            const tabela = rendimentoTabelas[log.tipo];
+            let htmlTable = '';
+            tabela.forEach(item => {
+                const pesoCorte = (log.pesoBruto * item.percentual) / 100;
+                const valorCorte = pesoCorte * item.preco;
+                const textoPreco = item.desperdicio ? 'Descarte' : `R$ ${item.preco.toFixed(2)}`;
+                const textoValor = item.desperdicio ? 'R$ 0,00' : `R$ ${valorCorte.toFixed(2)}`;
+
+                htmlTable += `
+                    <tr class="border-b border-black">
+                        <td class="py-1">${item.nome}</td>
+                        <td class="py-1 text-right">${item.percentual.toFixed(1)}%</td>
+                        <td class="py-1 text-right">${textoPreco}</td>
+                        <td class="py-1 text-right">${textoValor}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('printTableBody').innerHTML = htmlTable;
+            window.print();
+        };
+
+        // Excluir lote do log
         window.deletarLote = function(id) {
-            if (confirm("Deseja realmente remover permanentemente este registro de log?")) {
+            if (confirm("Quer realmente excluir permanentemente esse registro de log?")) {
                 logsHistorico = logsHistorico.filter(l => l.id !== id);
-                localStorage.setItem('desossa_pro_logs_v5', JSON.stringify(logsHistorico));
+                localStorage.setItem('desossa_pro_logs_v6', JSON.stringify(logsHistorico));
                 renderSpreadsheet();
                 showToast("Registro de log removido com sucesso!");
             }
@@ -931,24 +1150,23 @@
 
         // Zerar Logs Completamente
         window.confirmarZerarLogs = function() {
-            if (confirm("ATENÇÃO: Você irá apagar todo o histórico de logs do sistema permanentemente. Deseja continuar?")) {
+            if (confirm("ATENÇÃO: Você irá apagar todo o histórico de logs do sistema de forma irreversível. Prosseguir?")) {
                 logsHistorico = [];
-                localStorage.removeItem('desossa_pro_logs_v5');
+                localStorage.removeItem('desossa_pro_logs_v6');
                 renderSpreadsheet();
-                showToast("Histórico de logs completamente zerado!");
+                showToast("Logs completamente zerados!");
             }
         };
 
-        // Exportar Dados em formato CSV para Excel / Google Sheets
+        // Exportação de CSV para carregar no Excel / Google Sheets
         window.exportarCSV = function() {
             if (logsHistorico.length === 0) {
-                alert("Não há dados de logs para exportar no momento.");
+                alert("Nenhum dado cadastrado para exportação.");
                 return;
             }
 
-            // UTF-8 BOM para garantir acentuação correta no Excel brasileiro
             let csvContent = "\uFEFF";
-            csvContent += "ID;Data/Hora;Peca;Peso Bruto (KG);Carne Limpa (KG);Desperdicio (KG);Responsavel;Fornecedor\n";
+            csvContent += "ID;Data/Hora;Peca;Peso Entrada (KG);Carne Limpa (KG);Desperdicio (KG);Faturamento Estimado (R$);Responsavel;Fornecedor\n";
 
             logsHistorico.forEach(log => {
                 const row = [
@@ -958,6 +1176,7 @@
                     log.pesoBruto.toFixed(2).replace('.', ','),
                     log.carneLimpa.toFixed(2).replace('.', ','),
                     log.desperdicio.toFixed(2).replace('.', ','),
+                    log.faturamento.toFixed(2).replace('.', ','),
                     log.responsavel,
                     log.fornecedor
                 ].join(";");
@@ -977,7 +1196,7 @@
             showToast("Planilha CSV exportada com sucesso!");
         };
 
-        // CONFIGURAR: Carregar Fórmulas de Rendimento para Edição
+        // CONFIGURAR: Carregar Fórmulas de Rendimento & Preço por Corte
         window.loadYieldConfig = function() {
             const selector = document.getElementById('yieldPecaSelector');
             const pecaSelected = selector.value;
@@ -987,12 +1206,23 @@
             let htmlFields = '';
             tabelaCortes.forEach((item, index) => {
                 const labelColor = item.desperdicio ? "text-brand-500 font-extrabold" : "text-slate-700 dark:text-slate-300";
+                const isDesperdicio = item.desperdicio;
+
                 htmlFields += `
-                    <div class="flex items-center justify-between space-x-3 bg-slate-50 dark:bg-slate-950 p-2 rounded-xl border border-slate-200/40 dark:border-slate-800/40">
-                        <span class="text-xs font-bold ${labelColor}">${item.nome}</span>
-                        <div class="relative w-24">
-                            <input type="number" step="0.1" min="0" max="100" value="${item.percentual}" oninput="checkYieldSum()" class="yield-percent-input w-full px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs font-bold text-slate-800 dark:text-white text-right focus:ring-1 focus:ring-brand-500 outline-none" data-index="${index}">
-                            <span class="absolute right-2 top-1/2 -translate-y-1/2 text-[9px] font-bold text-slate-400">%</span>
+                    <div class="grid grid-cols-12 gap-2 bg-slate-50 dark:bg-slate-950 p-2 rounded-xl border border-slate-200/40 dark:border-slate-800/40 items-center">
+                        <!-- Nome -->
+                        <div class="col-span-6 text-xs font-bold ${labelColor} truncate">${item.nome}</div>
+                        
+                        <!-- Rendimento % -->
+                        <div class="col-span-3 relative">
+                            <input type="number" step="0.1" min="0" max="100" value="${item.percentual}" oninput="checkYieldSum()" class="yield-percent-input w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs font-bold text-slate-800 dark:text-white text-right focus:ring-1 focus:ring-brand-500 outline-none" data-index="${index}">
+                            <span class="absolute right-1 top-1/2 -translate-y-1/2 text-[8px] font-bold text-slate-400">%</span>
+                        </div>
+                        
+                        <!-- Preço R$ -->
+                        <div class="col-span-3 relative">
+                            <input type="number" step="0.01" min="0" value="${item.preco}" ${isDesperdicio ? 'disabled' : ''} class="yield-price-input w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 ${isDesperdicio ? 'bg-slate-200/50 text-slate-400 dark:bg-slate-900/50' : 'text-slate-800 dark:text-white'} text-xs font-bold text-right focus:ring-1 focus:ring-brand-500 outline-none" data-index="${index}">
+                            <span class="absolute right-1 top-1/2 -translate-y-1/2 text-[8px] font-bold text-slate-400">R$</span>
                         </div>
                     </div>
                 `;
@@ -1002,7 +1232,7 @@
             checkYieldSum();
         };
 
-        // Checar e validar a soma das porcentagens (Deve somar exatamente 100%)
+        // Validação de Soma de Percentual (Deve somar exatamente 100%)
         window.checkYieldSum = function() {
             const inputs = document.querySelectorAll('.yield-percent-input');
             let sum = 0;
@@ -1020,14 +1250,15 @@
             }
         };
 
-        // Salvar Nova Configuração de Fórmula Customizada
+        // Salvar Nova Configuração de Fórmula & Preço Customizados
         window.salvarYieldConfig = function(event) {
             event.preventDefault();
             const pecaSelected = document.getElementById('yieldPecaSelector').value;
-            const inputs = document.querySelectorAll('.yield-percent-input');
+            const percentInputs = document.querySelectorAll('.yield-percent-input');
+            const priceInputs = document.querySelectorAll('.yield-price-input');
             
             let sum = 0;
-            inputs.forEach(input => {
+            percentInputs.forEach(input => {
                 sum += parseFloat(input.value) || 0;
             });
 
@@ -1036,29 +1267,34 @@
                 return;
             }
 
-            // Atualiza o estado
-            inputs.forEach(input => {
+            // Atualiza o estado das porcentagens e preços
+            percentInputs.forEach(input => {
                 const index = parseInt(input.getAttribute('data-index'));
                 rendimentoTabelas[pecaSelected][index].percentual = parseFloat(input.value) || 0;
             });
 
-            localStorage.setItem('desossa_yield_config', JSON.stringify(rendimentoTabelas));
+            priceInputs.forEach(input => {
+                const index = parseInt(input.getAttribute('data-index'));
+                rendimentoTabelas[pecaSelected][index].preco = parseFloat(input.value) || 0;
+            });
+
+            localStorage.setItem('desossa_yield_config_v4', JSON.stringify(rendimentoTabelas));
             calcularRendimentos();
-            showToast("Regra de rendimento atualizada com sucesso!");
+            showToast("Regra de rendimento & preços atualizados com sucesso!");
         };
 
-        // Restaurar Fórmulas Padrões de Fábrica
+        // Reverter para as fórmulas e preços padrões de fábrica
         window.resetYieldsToDefault = function() {
-            if (confirm("Deseja realmente reverter todos os rendimentos de cortes para os padrões oficiais do sistema?")) {
+            if (confirm("Quer reverter todos os rendimentos de cortes e preços por KG para os padrões de fábrica?")) {
                 rendimentoTabelas = JSON.parse(JSON.stringify(defaultRendimentoTabelas));
-                localStorage.setItem('desossa_yield_config', JSON.stringify(rendimentoTabelas));
+                localStorage.setItem('desossa_yield_config_v4', JSON.stringify(rendimentoTabelas));
                 loadYieldConfig();
                 calcularRendimentos();
-                showToast("Fórmulas padrões restauradas!");
+                showToast("Valores de fábrica restaurados!");
             }
         };
 
-        // Impressão Física de Cupom
+        // Impressão Física de Nota / Cupom
         window.imprimirCupom = function() {
             const pesoBruto = parseFloat(pesoBrutoInput.value) || 0;
             if (pesoBruto <= 0) {
@@ -1069,8 +1305,8 @@
             const responsavel = document.getElementById('responsavel').value.trim() || "NÃO INFORMADO";
             const fornecedor = document.getElementById('fornecedor').value.trim() || "NÃO INFORMADO";
             const tabela = rendimentoTabelas[activePeca];
+            let faturamentoTotal = 0;
 
-            // Cabeçalho da Impressão Dinâmica
             document.getElementById('printData').textContent = `DATA: ${new Date().toLocaleString('pt-BR')}`;
             document.getElementById('printResponsavel').textContent = responsavel.toUpperCase();
             document.getElementById('printFornecedor').textContent = fornecedor.toUpperCase();
@@ -1081,18 +1317,27 @@
             let htmlTable = '';
             tabela.forEach(item => {
                 const pesoCorte = (pesoBruto * item.percentual) / 100;
+                const valorCorte = pesoCorte * item.preco;
+
+                if (!item.desperdicio) {
+                    faturamentoTotal += valorCorte;
+                }
+
+                const textoPreco = item.desperdicio ? 'Descarte' : `R$ ${item.preco.toFixed(2)}`;
+                const textoValor = item.desperdicio ? 'R$ 0,00' : `R$ ${valorCorte.toFixed(2)}`;
+
                 htmlTable += `
                     <tr class="border-b border-black">
                         <td class="py-1">${item.nome}</td>
                         <td class="py-1 text-right">${item.percentual.toFixed(1)}%</td>
-                        <td class="py-1 text-right">${pesoCorte.toFixed(2).replace('.', ',')} KG</td>
+                        <td class="py-1 text-right">${textoPreco}</td>
+                        <td class="py-1 text-right">${textoValor}</td>
                     </tr>
                 `;
             });
 
+            document.getElementById('printFaturamento').textContent = `R$ ${faturamentoTotal.toFixed(2).replace('.', ',')}`;
             document.getElementById('printTableBody').innerHTML = htmlTable;
-
-            // Chamar Interface de Impressão do Navegador
             window.print();
         };
 
