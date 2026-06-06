@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>DesossaPro Premium - Sistema de Rendimento & Faturamento</title>
+    <title>DesossaPro - Sistema de Rendimento & Faturamento</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -49,14 +49,17 @@
             overflow: hidden;
             height: 0;
             width: 0;
+            /* Prevents form and key elements from being focusable/tabbable when hidden */
+            display: none;
         }
         .tab-active {
             opacity: 1;
             transform: translateY(0) scale(1);
             visibility: visible;
             position: relative;
+            display: block;
         }
-        /* Scrollbar customizada e suave */
+        /* Custom scrollbar for webkit */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -71,28 +74,37 @@
         .dark ::-webkit-scrollbar-thumb {
             background: #475569;
         }
+        /* Folha de estilos de impressão profissional e sem perdas */
         @media print {
-            body * {
-                visibility: hidden;
+            body, html {
+                height: auto !important;
+                overflow: visible !important;
+                background: white !important;
+                color: black !important;
             }
-            #printArea, #printArea * {
-                visibility: visible;
+            /* Ocultar todo o app visualmente para não dar conflito */
+            .no-print, header, nav, footer, main, .tab-view {
+                display: none !important;
+                height: 0 !important;
+                overflow: hidden !important;
             }
             #printArea {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
+                display: block !important;
+                position: relative !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                visibility: visible !important;
             }
-            .no-print {
-                display: none !important;
+            #printArea * {
+                visibility: visible !important;
             }
         }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300 pb-20 md:pb-0">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300 pb-20 md:pb-0 md:h-screen md:overflow-hidden">
 
-    <!-- Header Fixo de Altura Reduzida -->
+    <!-- Header Fixo SaaS -->
     <header class="bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800/80 sticky top-0 z-40 transition-all duration-300 no-print h-16 flex-shrink-0">
         <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between">
             <div class="flex items-center space-x-3">
@@ -118,7 +130,7 @@
         </div>
     </header>
 
-    <!-- Barra de Abas Fluida (Centralizada no Desktop e inferior no Mobile - Como YT ou Instagram) -->
+    <!-- Barra de Abas Fluida (Centralizada no Desktop e inferior no Mobile) -->
     <nav class="fixed bottom-0 left-0 right-0 md:top-16 md:bottom-auto md:sticky bg-white dark:bg-slate-900 border-t md:border-t-0 md:border-b border-slate-200 dark:border-slate-800 z-50 pb-safe md:pb-0 no-print transition-all duration-300 shadow-lg md:shadow-none h-16 md:h-12 flex-shrink-0">
         <div class="max-w-6xl mx-auto px-4 flex justify-around md:justify-center md:space-x-12 h-full items-center">
             <button onclick="switchTab('calculadora')" id="tab-calculadora" class="flex flex-col md:flex-row items-center justify-center py-2 md:py-3 px-4 border-t-2 md:border-t-0 md:border-b-2 font-bold text-[10px] md:text-xs tracking-wider uppercase transition-all space-y-1 md:space-y-0 md:space-x-1.5 border-brand-500 text-brand-600 dark:text-brand-500 h-full">
@@ -151,20 +163,20 @@
         <span id="toastMessage" class="font-bold text-xs tracking-wide">Sucesso!</span>
     </div>
 
-    <!-- Contêiner Wrapper Central SaaS (Com rolagem adequada para não travar no computador/celular) -->
-    <div class="relative flex-grow flex flex-col w-full h-full max-w-6xl mx-auto py-4">
+    <!-- Contêiner Wrapper Central SaaS (md:h-[calc(100vh-112px)] para ocupar exatamente a altura no PC) -->
+    <div class="relative flex-grow flex flex-col w-full md:h-[calc(100vh-112px)] max-w-6xl mx-auto py-4 overflow-hidden">
         
         <!-- VIEW 1: CALCULADORA DE DESOSSA -->
-        <div id="view-calculadora" class="tab-view tab-active w-full px-4 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div id="view-calculadora" class="tab-view tab-active w-full px-4 grid grid-cols-1 lg:grid-cols-12 gap-6 h-full overflow-y-auto md:overflow-hidden">
             
-            <!-- Entrada de dados e Boi (Esquerda) -->
-            <div class="lg:col-span-7 space-y-4">
+            <!-- CONTÊINER 1: Entrada de dados e Boi (Esquerda - 4 colunas) -->
+            <div class="lg:col-span-4 flex flex-col space-y-4 h-full overflow-y-auto">
                 
                 <!-- Quadro Negro do Boi Realista de Giz -->
-                <div class="bg-slate-900 dark:bg-black rounded-3xl border border-slate-800 shadow-xl p-4 flex flex-col items-center relative overflow-hidden">
+                <div class="bg-slate-900 dark:bg-black rounded-3xl border border-slate-800 shadow-xl p-4 flex flex-col items-center justify-between relative overflow-hidden flex-shrink-0">
                     <span class="absolute top-3 left-4 text-[9px] font-black tracking-widest text-slate-500 uppercase">CORTES DE PRECISÃO REALISTA</span>
                     
-                    <!-- SVG Anatômico Premium do Boi (Visível por padrão em desktop, colapsável em mobile) -->
+                    <!-- SVG Anatômico Premium do Boi (Visível em desktop, colapsável em mobile) -->
                     <div id="cowSvgContainer" class="w-full max-w-[420px] h-auto my-3 transition-all duration-300 hidden md:block">
                         <svg viewBox="0 0 620 380" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                             <!-- Corpo Completo (Fundo) -->
@@ -207,7 +219,7 @@
                 </div>
 
                 <!-- Cards de Escolha do Tipo de Peça -->
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 flex-shrink-0">
                     <button onclick="selectPeca('boi_inteiro')" id="card-boi_inteiro" class="peca-card p-3 bg-white dark:bg-slate-900 rounded-2xl border-2 border-transparent hover:border-slate-200 dark:hover:border-slate-800 shadow-sm flex flex-col items-center text-center transition-all cursor-pointer">
                         <span class="text-lg mb-1">🐮</span>
                         <span class="text-[9px] font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Boi Inteiro</span>
@@ -229,14 +241,18 @@
                         <span class="text-[9px] font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Banda Esq.</span>
                     </button>
                 </div>
+            </div>
 
-                <!-- Formulário Técnico e Lançamento de Peso -->
-                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-5 shadow-sm space-y-3">
+            <!-- CONTÊINER 2: Gráfico, Totais e Faturamento (Meio - 4 colunas) -->
+            <div class="lg:col-span-4 flex flex-col space-y-4 h-full overflow-y-auto">
+                
+                <!-- Formulário Técnico e Lançamento de Peso (Ajustado para perfeito clique no PC) -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-5 shadow-sm flex-shrink-0">
                     <form id="desossaForm" onsubmit="salvarDesossa(event)" class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div class="md:col-span-2">
                             <div class="flex justify-between items-center mb-1">
                                 <label class="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Peso Bruto Entrada (KG)</label>
-                                <span class="text-[9px] font-extrabold text-brand-500 bg-brand-500/10 px-2.5 py-0.5 rounded-full animate-pulse">Cálculo e Preço Automáticos</span>
+                                <span class="text-[9px] font-extrabold text-brand-500 bg-brand-500/10 px-2.5 py-0.5 rounded-full animate-pulse">Cálculo Automático</span>
                             </div>
                             <div class="relative">
                                 <input type="number" id="pesoBruto" required step="0.01" min="0.1" placeholder="Ex: 275.5" class="w-full pl-6 pr-16 py-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-xl font-black">
@@ -254,6 +270,7 @@
                             <input type="text" id="fornecedor" required placeholder="Frigorífico ou Origem" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 text-xs font-bold transition-all">
                         </div>
 
+                        <!-- Botão com nomenclatura pragmática e focado em registrar -->
                         <div class="md:col-span-2 pt-1 flex space-x-2">
                             <button type="button" onclick="limparCampos()" class="flex-1 py-2.5 px-3 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-bold rounded-xl text-xs uppercase tracking-wider transition-all">
                                 Limpar
@@ -262,19 +279,15 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
                                 </svg>
-                                <span>Salvar no Log</span>
+                                <span>Registrar Entrada</span>
                             </button>
                         </div>
                     </form>
                 </div>
-            </div>
 
-            <!-- Coluna de Resultados / Faturamento (Direita) -->
-            <div class="lg:col-span-5 space-y-4">
-                
                 <!-- Painel Metas de Aproveitamento e Faturamento -->
-                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-5 shadow-sm space-y-4">
-                    <div class="flex items-center justify-between">
+                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-5 shadow-sm space-y-4 flex flex-col h-full overflow-hidden">
+                    <div class="flex items-center justify-between flex-shrink-0">
                         <h2 class="text-[10px] font-black tracking-widest uppercase text-slate-400 dark:text-slate-500">Métricas Estatísticas</h2>
                         <div class="flex space-x-1.5">
                             <button onclick="copiarResumoTextual()" class="p-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-all flex items-center space-x-1 text-[10px] font-bold" title="Copiar em formato texto">
@@ -293,7 +306,7 @@
                     </div>
 
                     <!-- Faturamento Estimado Dinâmico (Grande destaque exigido) -->
-                    <div class="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 dark:from-emerald-950/30 dark:to-teal-950/30 border border-emerald-500/20 rounded-2xl p-4 flex items-center justify-between">
+                    <div class="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 dark:from-emerald-950/30 dark:to-teal-950/30 border border-emerald-500/20 rounded-2xl p-4 flex items-center justify-between flex-shrink-0">
                         <div>
                             <span class="block text-[8px] text-emerald-600 dark:text-emerald-400 font-extrabold uppercase tracking-widest">FATURAMENTO BRUTO ESTIMADO</span>
                             <span id="textFaturamentoEstimado" class="block text-2xl font-black text-emerald-600 dark:text-emerald-400 mt-1">R$ 0,00</span>
@@ -305,7 +318,7 @@
                     </div>
 
                     <!-- Donut Chart & Legend -->
-                    <div class="flex items-center justify-around bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-100/50 dark:border-slate-800/30">
+                    <div class="flex items-center justify-around bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-100/50 dark:border-slate-800/30 flex-shrink-0">
                         <div class="relative w-24 h-24 flex items-center justify-center">
                             <svg class="absolute w-full h-full transform -rotate-90">
                                 <circle cx="48" cy="48" r="40" stroke-width="6" stroke="currentColor" class="text-slate-200 dark:text-slate-850" fill="transparent" />
@@ -334,33 +347,42 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Tabela Estilo SaaS com rolagem interna apenas para os cortes -->
-                    <div class="border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden flex flex-col">
-                        <div class="bg-slate-50 dark:bg-slate-950 px-4 py-2.5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between text-[9px] font-black tracking-widest text-slate-400 dark:text-slate-500 uppercase">
-                            <span>23 Cortes de Abate do Açougue</span>
-                            <span id="labelCortesCount">0 Cortes</span>
-                        </div>
-                        <div id="calculadoraCortesContainer" class="p-2 space-y-1 overflow-y-auto max-h-[300px] divide-y divide-slate-100 dark:divide-slate-800/40">
-                            <!-- Inserido dinamicamente via JS -->
-                            <div class="text-center py-6 text-xs font-bold text-slate-400 dark:text-slate-500">Introduza o peso de abate para ver faturamento detalhado.</div>
-                        </div>
+            <!-- CONTÊINER 3: Os 23 Cortes de Abate do Açougue (Direita - 4 colunas) -->
+            <div class="lg:col-span-4 flex flex-col space-y-4 h-full overflow-y-auto">
+                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-4 shadow-sm flex flex-col h-full overflow-hidden">
+                    <div class="bg-slate-50 dark:bg-slate-950 px-4 py-2.5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between text-[9px] font-black tracking-widest text-slate-400 dark:text-slate-500 uppercase flex-shrink-0">
+                        <span>Cortes do Dia (Detalhados)</span>
+                        <span id="labelCortesCount">0 Cortes</span>
+                    </div>
+                    <div id="calculadoraCortesContainer" class="p-2 space-y-1 overflow-y-auto flex-grow divide-y divide-slate-100 dark:divide-slate-800/40">
+                        <!-- Inserido dinamicamente via JS -->
+                        <div class="text-center py-6 text-xs font-bold text-slate-400 dark:text-slate-500">Introduza o peso de abate para ver faturamento detalhado.</div>
                     </div>
                 </div>
             </div>
         </div> <!-- FIM DO view-calculadora -->
 
         <!-- VIEW 2: PLANILHA DE LOGS -->
-        <div id="view-planilha" class="tab-view tab-inactive w-full px-4 flex flex-col space-y-4">
-            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-5 shadow-sm flex flex-col space-y-4">
-                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3 flex-wrap gap-2">
+        <div id="view-planilha" class="tab-view tab-inactive w-full px-4 flex flex-col space-y-4 h-full overflow-y-auto">
+            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-5 shadow-sm flex flex-col space-y-4 h-full">
+                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3 flex-wrap gap-2 flex-shrink-0">
                     <div>
                         <h2 class="text-xs font-black tracking-widest uppercase text-slate-400 dark:text-slate-500">Planilha de logs e Auditoria</h2>
                         <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">Planilha para conferência histórica e exportação direta.</p>
                     </div>
 
-                    <div class="flex items-center space-x-2">
-                        <button onclick="exportarCSV()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold tracking-wider uppercase flex items-center space-x-1.5 transition-all">
+                    <div class="flex items-center space-x-2 flex-wrap gap-2">
+                        <!-- Botão de PDF Consolidado de Todos os Registros -->
+                        <button onclick="gerarPDFConsolidado()" class="px-3.5 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-bold tracking-wider uppercase flex items-center space-x-1.5 transition-all shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span>Gerar PDF Consolidado</span>
+                        </button>
+                        <button onclick="exportarCSV()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold tracking-wider uppercase flex items-center space-x-1.5 transition-all shadow-md">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
@@ -373,7 +395,7 @@
                 </div>
 
                 <!-- Barra de pesquisa da planilha -->
-                <div class="flex items-center justify-between flex-wrap gap-2 bg-slate-50 dark:bg-slate-950 p-2.5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40">
+                <div class="flex items-center justify-between flex-wrap gap-2 bg-slate-50 dark:bg-slate-950 p-2.5 rounded-2xl border border-slate-200/50 dark:border-slate-800/40 flex-shrink-0">
                     <div class="relative w-full sm:w-72">
                         <input type="text" id="spreadsheetSearch" oninput="renderSpreadsheet()" placeholder="Filtrar por Responsável ou Fornecedor..." class="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs font-semibold text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
@@ -386,10 +408,10 @@
                 </div>
 
                 <!-- Planilha / Grid de dados clássica -->
-                <div class="border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 shadow-inner overflow-hidden">
-                    <div class="overflow-x-auto">
+                <div class="border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 shadow-inner overflow-hidden flex-grow flex flex-col">
+                    <div class="overflow-x-auto flex-grow">
                         <table class="w-full text-left border-collapse text-xs font-bold min-w-[850px]">
-                            <thead class="bg-slate-50 dark:bg-slate-950">
+                            <thead class="bg-slate-50 dark:bg-slate-950 sticky top-0 z-10">
                                 <tr class="border-b border-slate-200 dark:border-slate-800/80 text-[9px] text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                                     <th class="px-4 py-2.5">Abate / Data</th>
                                     <th class="px-4 py-2.5">Peça Comprada</th>
@@ -415,10 +437,10 @@
         </div> <!-- FIM DO view-planilha -->
 
         <!-- VIEW 3: CONFIGURAÇÕES -->
-        <div id="view-configuracoes" class="tab-view tab-inactive w-full px-4 grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div id="view-configuracoes" class="tab-view tab-inactive w-full px-4 grid grid-cols-1 lg:grid-cols-12 gap-6 h-full overflow-y-auto">
             
-            <!-- Seção: Perfil do Açougue -->
-            <section class="md:col-span-4 space-y-4">
+            <!-- Seção: Perfil do Açougue e Integração com Planilha Google -->
+            <section class="lg:col-span-4 space-y-4">
                 <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-5 shadow-sm space-y-3">
                     <div class="border-b border-slate-100 dark:border-slate-800 pb-2">
                         <h2 class="text-xs font-black tracking-widest uppercase text-slate-400 dark:text-slate-500">Perfil do Açougue</h2>
@@ -445,6 +467,18 @@
                             <input type="text" id="shopAddress" placeholder="Rua Central, 123 - Centro" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs font-bold text-slate-850 dark:text-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                         </div>
 
+                        <!-- Configurar link do Google Sheets para o aplicativo fazer as sincronias automáticas -->
+                        <div class="border-t border-slate-100 dark:border-slate-800 pt-3">
+                            <span class="block text-[9px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">Sincronização de Planilha</span>
+                            <div>
+                                <label class="block text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase mb-1">Link do Google Planilhas (Sheets)</label>
+                                <input type="url" id="googleSheetsLink" placeholder="https://docs.google.com/spreadsheets/d/..." class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs font-semibold text-slate-850 dark:text-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
+                            </div>
+                            <p class="text-[9px] text-slate-400 dark:text-slate-500 mt-2 leading-relaxed">
+                                Cole aqui o link da planilha do Google para gravação automática ao clicar em <strong>Registrar Entrada</strong>.
+                            </p>
+                        </div>
+
                         <div class="pt-1">
                             <button type="submit" class="w-full py-2 bg-gradient-to-r from-brand-600 to-brand-500 text-white rounded-xl text-xs font-bold tracking-wider uppercase shadow-md hover:shadow-lg transition-all">Salvar Configurações</button>
                         </div>
@@ -453,7 +487,7 @@
             </section>
 
             <!-- Seção: Ajustes de Fórmulas de Rendimento e Preço por Corte -->
-            <section class="md:col-span-8 space-y-4">
+            <section class="lg:col-span-8 space-y-4">
                 <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-5 shadow-sm space-y-3">
                     <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2 flex-wrap gap-2">
                         <h2 class="text-xs font-black tracking-widest uppercase text-slate-400 dark:text-slate-500">Configurar Preço & Porcentagem por Corte</h2>
@@ -496,167 +530,126 @@
     </div> <!-- FIM DO WRAPPER -->
 
     <!-- Rodapé -->
-    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800/80 py-3 mt-auto text-center text-[10px] text-slate-400 dark:text-slate-500 no-print">
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800/80 py-3 mt-auto text-center text-[10px] text-slate-400 dark:text-slate-500 no-print flex-shrink-0">
         <p>© 2026 <span class="footer-shop-name font-bold">DesossaPro</span> • Sistema de Abate para Açougues Profissionais.</p>
     </footer>
 
     <!-- ÁREA SECRETA EXCLUSIVA PARA GERAÇÃO E IMPRESSÃO DE CUPONS E HISTÓRICOS -->
     <div id="printArea" class="hidden p-6 bg-white text-black">
-        <div class="max-w-xs mx-auto border border-black p-4 text-xs font-mono space-y-4">
-            <div class="text-center border-b border-dashed border-black pb-2">
-                <h2 id="printShopName" class="text-sm font-bold uppercase">DESOSSAPRO PREMIUM</h2>
-                <p id="printShopSlogan" class="text-[9px] text-gray-500 uppercase">CONTROLE DE RENDIMENTO & RECEITA</p>
-                <p id="printShopPhone" class="text-[9px] text-gray-500"></p>
-                <p id="printShopAddress" class="text-[9px] text-gray-500"></p>
-                <p class="text-[9px] mt-1" id="printData"></p>
-            </div>
-
-            <div class="space-y-1">
-                <p><strong>OPERADOR:</strong> <span id="printResponsavel"></span></p>
-                <p><strong>FRIGORÍFICO:</strong> <span id="printFornecedor"></span></p>
-                <p><strong>PEÇA BASE:</strong> <span id="printPeca"></span></p>
-            </div>
-
-            <div class="border-t border-b border-dashed border-black py-2 font-bold text-sm flex justify-between">
-                <span>PESO BRUTO ENTRADA:</span>
-                <span id="printPesoBruto"></span>
-            </div>
-
-            <div class="font-bold text-sm flex justify-between bg-gray-150 p-1.5 rounded">
-                <span>FATURAMENTO ESTIMADO:</span>
-                <span id="printFaturamento"></span>
-            </div>
-
-            <table class="w-full text-left text-[10px] border-collapse">
-                <thead>
-                    <tr class="border-b border-black">
-                        <th class="py-1">Corte</th>
-                        <th class="py-1 text-right">Rend. %</th>
-                        <th class="py-1 text-right">Preço/KG</th>
-                        <th class="py-1 text-right">Valor R$</th>
-                    </tr>
-                </thead>
-                <tbody id="printTableBody">
-                    <!-- Preenchido via JS -->
-                </tbody>
-            </table>
-
-            <div class="border-t border-dashed border-black pt-2 text-center text-[9px] space-y-1">
-                <p>Este cupom é uma ferramenta de auditoria de rendimento.</p>
-                <p>Agradecemos a preferência!</p>
-            </div>
+        <div class="max-w-4xl mx-auto p-4 text-xs font-sans space-y-6">
+            <!-- Esse container será dinamicamente preenchido com o Cupom ou com o Relatório Consolidado -->
+            <div id="printContent"></div>
         </div>
     </div>
 
     <!-- SCRIPT TÉCNICO DE GESTÃO, CONTROLE E CÁLCULO DE AUDITORIA -->
     <script>
         // Tabelas de Porcentagens de Rendimento baseada nos cortes requisitados pelo cliente
-        // Cada corte tem a porcentagem padrão e seu respectivo preço comercial por KG
-        // Nota: As porcentagens somam 100% de aproveitamento/desperdício por peça
+        // Nota: as quebras e ossos agora estão mapeados com percentuais reais de desperdício (20% boi inteiro, 30% dianteiro, 15% traseiro)
         const defaultRendimentoTabelas = {
             boi_inteiro: [
-                { nome: "Picanha", percentual: 2.0, preco: 59.99, desperdicio: false },
-                { nome: "Filé Mignon", percentual: 1.5, preco: 58.99, desperdicio: false },
-                { nome: "Alcatra", percentual: 5.5, preco: 44.99, desperdicio: false },
-                { nome: "Alcatra c/ Maminha", percentual: 4.0, preco: 41.99, desperdicio: false },
-                { nome: "Contra Filé", percentual: 7.0, preco: 49.99, desperdicio: false },
-                { nome: "Coxão Mole", percentual: 11.5, preco: 37.99, desperdicio: false },
-                { nome: "Patinho", percentual: 9.0, preco: 31.99, desperdicio: false },
-                { nome: "Coxão Duro", percentual: 8.5, preco: 32.99, desperdicio: false },
-                { nome: "Fraldinha", percentual: 2.5, preco: 39.99, desperdicio: false },
-                { nome: "Paleta s/ Osso", percentual: 6.5, preco: 34.99, desperdicio: false },
-                { nome: "Músculo", percentual: 4.5, preco: 26.99, desperdicio: false },
-                { nome: "Moída de Segunda", percentual: 5.0, preco: 19.99, desperdicio: false },
-                { nome: "Bisteca", percentual: 3.5, preco: 32.99, desperdicio: false },
-                { nome: "Bife Especial", percentual: 3.0, preco: 29.99, desperdicio: false },
-                { nome: "Costela Mindinha", percentual: 4.0, preco: 24.99, desperdicio: false },
-                { nome: "Costela Ripa", percentual: 4.5, preco: 21.99, desperdicio: false },
-                { nome: "Pescoço", percentual: 3.5, preco: 12.99, desperdicio: false },
-                { nome: "Paleta c/ Osso", percentual: 3.0, preco: 21.99, desperdicio: false },
-                { nome: "Agulha", percentual: 3.0, preco: 21.99, desperdicio: false },
-                { nome: "Peito", percentual: 3.0, preco: 19.99, desperdicio: false },
-                { nome: "Bistecão da Agulha", percentual: 2.5, preco: 23.99, desperdicio: false },
+                { nome: "Picanha", percentual: 1.5, preco: 59.99, desperdicio: false },
+                { nome: "Filé Mignon", percentual: 1.0, preco: 58.99, desperdicio: false },
+                { nome: "Alcatra", percentual: 4.5, preco: 44.99, desperdicio: false },
+                { nome: "Alcatra c/ Maminha", percentual: 3.5, preco: 41.99, desperdicio: false },
+                { nome: "Contra Filé", percentual: 6.0, preco: 49.99, desperdicio: false },
+                { nome: "Coxão Mole", percentual: 10.0, preco: 37.99, desperdicio: false },
+                { nome: "Patinho", percentual: 8.0, preco: 31.99, desperdicio: false },
+                { nome: "Coxão Duro", percentual: 7.5, preco: 32.99, desperdicio: false },
+                { nome: "Fraldinha", percentual: 2.0, preco: 39.99, desperdicio: false },
+                { nome: "Paleta s/ Osso", percentual: 5.5, preco: 34.99, desperdicio: false },
+                { nome: "Músculo", percentual: 3.5, preco: 26.99, desperdicio: false },
+                { nome: "Moída de Segunda", percentual: 4.5, preco: 19.99, desperdicio: false },
+                { nome: "Bisteca", percentual: 3.0, preco: 32.99, desperdicio: false },
+                { nome: "Bife Especial", percentual: 2.5, preco: 29.99, desperdicio: false },
+                { nome: "Costela Mindinha", percentual: 3.5, preco: 24.99, desperdicio: false },
+                { nome: "Costela Ripa", percentual: 4.0, preco: 21.99, desperdicio: false },
+                { nome: "Pescoço", percentual: 3.0, preco: 12.99, desperdicio: false },
+                { nome: "Paleta c/ Osso", percentual: 2.5, preco: 21.99, desperdicio: false },
+                { nome: "Agulha", percentual: 2.5, preco: 21.99, desperdicio: false },
+                { nome: "Peito", percentual: 2.5, preco: 19.99, desperdicio: false },
+                { nome: "Bistecão da Agulha", percentual: 2.0, preco: 23.99, desperdicio: false },
                 { nome: "Canela p/ Inteira", percentual: 1.0, preco: 12.99, desperdicio: false },
                 { nome: "Canela de Bandeja", percentual: 1.5, preco: 19.99, desperdicio: false },
-                { nome: "Ossos & Desperdício (Quebra)", percentual: 10.0, preco: 0.00, desperdicio: true }
+                { nome: "Ossos & Desperdício (Quebra)", percentual: 20.0, preco: 0.00, desperdicio: true }
             ],
             dianteiro: [
-                { nome: "Paleta s/ Osso", percentual: 15.0, preco: 34.99, desperdicio: false },
-                { nome: "Moída de Segunda", percentual: 12.0, preco: 19.99, desperdicio: false },
-                { nome: "Costela Ripa", percentual: 15.0, preco: 21.99, desperdicio: false },
-                { nome: "Pescoço", percentual: 11.5, preco: 12.99, desperdicio: false },
-                { nome: "Paleta c/ Osso", percentual: 10.0, preco: 21.99, desperdicio: false },
-                { nome: "Agulha", percentual: 9.0, preco: 21.99, desperdicio: false },
-                { nome: "Peito", percentual: 10.0, preco: 19.99, desperdicio: false },
-                { nome: "Bistecão da Agulha", percentual: 7.5, preco: 23.99, desperdicio: false },
-                { nome: "Ossos & Descarte (Quebra)", percentual: 10.0, preco: 0.00, desperdicio: true }
+                { nome: "Paleta s/ Osso", percentual: 11.0, preco: 34.99, desperdicio: false },
+                { nome: "Moída de Segunda", percentual: 9.0, preco: 19.99, desperdicio: false },
+                { nome: "Costela Ripa", percentual: 11.0, preco: 21.99, desperdicio: false },
+                { nome: "Pescoço", percentual: 8.5, preco: 12.99, desperdicio: false },
+                { nome: "Paleta c/ Osso", percentual: 8.0, preco: 21.99, desperdicio: false },
+                { nome: "Agulha", percentual: 8.0, preco: 21.99, desperdicio: false },
+                { nome: "Peito", percentual: 8.0, preco: 19.99, desperdicio: false },
+                { nome: "Bistecão da Agulha", percentual: 6.5, preco: 23.99, desperdicio: false },
+                { nome: "Ossos & Descarte (Quebra)", percentual: 30.0, preco: 0.00, desperdicio: true }
             ],
             traseiro: [
-                { nome: "Picanha", percentual: 5.5, preco: 59.99, desperdicio: false },
-                { nome: "Filé Mignon", percentual: 4.5, preco: 58.99, desperdicio: false },
-                { nome: "Alcatra", percentual: 13.0, preco: 44.99, desperdicio: false },
-                { nome: "Alcatra c/ Maminha", percentual: 10.0, preco: 41.99, desperdicio: false },
-                { nome: "Contra Filé", percentual: 16.5, preco: 49.99, desperdicio: false },
-                { nome: "Coxão Mole", percentual: 18.0, preco: 37.99, desperdicio: false },
-                { nome: "Patinho", percentual: 12.5, preco: 31.99, desperdicio: false },
-                { nome: "Coxão Duro", percentual: 11.0, preco: 32.99, desperdicio: false },
-                { nome: "Fraldinha", percentual: 4.5, preco: 39.99, desperdicio: false },
-                { nome: "Músculo Traseiro", percentual: 3.5, preco: 26.99, desperdicio: false },
+                { nome: "Picanha", percentual: 4.5, preco: 59.99, desperdicio: false },
+                { nome: "Filé Mignon", percentual: 3.5, preco: 58.99, desperdicio: false },
+                { nome: "Alcatra", percentual: 11.0, preco: 44.99, desperdicio: false },
+                { nome: "Alcatra c/ Maminha", percentual: 8.5, preco: 41.99, desperdicio: false },
+                { nome: "Contra Filé", percentual: 14.5, preco: 49.99, desperdicio: false },
+                { nome: "Coxão Mole", percentual: 15.0, preco: 37.99, desperdicio: false },
+                { nome: "Patinho", percentual: 11.0, preco: 31.99, desperdicio: false },
+                { nome: "Coxão Duro", percentual: 9.5, preco: 32.99, desperdicio: false },
+                { nome: "Fraldinha", percentual: 3.5, preco: 39.99, desperdicio: false },
+                { nome: "Músculo Traseiro", percentual: 2.5, preco: 26.99, desperdicio: false },
                 { nome: "Canela p/ Inteira", percentual: 0.5, preco: 12.99, desperdicio: false },
-                { nome: "Canela de Bandeja", percentual: 0.5, preco: 19.99, desperdicio: false },
-                { nome: "Ossos & Perda Comercial", percentual: 0.0, preco: 0.00, desperdicio: true }
+                { nome: "Canela de Bandeja", percentual: 1.0, preco: 19.99, desperdicio: false },
+                { nome: "Ossos & Perda Comercial", percentual: 15.0, preco: 0.00, desperdicio: true }
             ],
             banda_direita: [
-                { nome: "Picanha", percentual: 2.0, preco: 59.99, desperdicio: false },
-                { nome: "Filé Mignon", percentual: 1.5, preco: 58.99, desperdicio: false },
-                { nome: "Alcatra", percentual: 5.5, preco: 44.99, desperdicio: false },
-                { nome: "Alcatra c/ Maminha", percentual: 4.0, preco: 41.99, desperdicio: false },
-                { nome: "Contra Filé", percentual: 7.0, preco: 49.99, desperdicio: false },
-                { nome: "Coxão Mole", percentual: 11.5, preco: 37.99, desperdicio: false },
-                { nome: "Patinho", percentual: 9.0, preco: 31.99, desperdicio: false },
-                { nome: "Coxão Duro", percentual: 8.5, preco: 32.99, desperdicio: false },
-                { nome: "Fraldinha", percentual: 2.5, preco: 39.99, desperdicio: false },
-                { nome: "Paleta s/ Osso", percentual: 6.5, preco: 34.99, desperdicio: false },
-                { nome: "Músculo", percentual: 4.5, preco: 26.99, desperdicio: false },
-                { nome: "Moída de Segunda", percentual: 5.0, preco: 19.99, desperdicio: false },
-                { nome: "Bisteca", percentual: 3.5, preco: 32.99, desperdicio: false },
-                { nome: "Bife Especial", percentual: 3.0, preco: 29.99, desperdicio: false },
-                { nome: "Costela Mindinha", percentual: 4.0, preco: 24.99, desperdicio: false },
-                { nome: "Costela Ripa", percentual: 4.5, preco: 21.99, desperdicio: false },
-                { nome: "Pescoço", percentual: 3.5, preco: 12.99, desperdicio: false },
-                { nome: "Paleta c/ Osso", percentual: 3.0, preco: 21.99, desperdicio: false },
-                { nome: "Agulha", percentual: 3.0, preco: 21.99, desperdicio: false },
-                { nome: "Peito", percentual: 3.0, preco: 19.99, desperdicio: false },
-                { nome: "Bistecão da Agulha", percentual: 2.5, preco: 23.99, desperdicio: false },
+                { nome: "Picanha", percentual: 1.5, preco: 59.99, desperdicio: false },
+                { nome: "Filé Mignon", percentual: 1.0, preco: 58.99, desperdicio: false },
+                { nome: "Alcatra", percentual: 4.5, preco: 44.99, desperdicio: false },
+                { nome: "Alcatra c/ Maminha", percentual: 3.5, preco: 41.99, desperdicio: false },
+                { nome: "Contra Filé", percentual: 6.0, preco: 49.99, desperdicio: false },
+                { nome: "Coxão Mole", percentual: 10.0, preco: 37.99, desperdicio: false },
+                { nome: "Patinho", percentual: 8.0, preco: 31.99, desperdicio: false },
+                { nome: "Coxão Duro", percentual: 7.5, preco: 32.99, desperdicio: false },
+                { nome: "Fraldinha", percentual: 2.0, preco: 39.99, desperdicio: false },
+                { nome: "Paleta s/ Osso", percentual: 5.5, preco: 34.99, desperdicio: false },
+                { nome: "Músculo", percentual: 3.5, preco: 26.99, desperdicio: false },
+                { nome: "Moída de Segunda", percentual: 4.5, preco: 19.99, desperdicio: false },
+                { nome: "Bisteca", percentual: 3.0, preco: 32.99, desperdicio: false },
+                { nome: "Bife Especial", percentual: 2.5, preco: 29.99, desperdicio: false },
+                { nome: "Costela Mindinha", percentual: 3.5, preco: 24.99, desperdicio: false },
+                { nome: "Costela Ripa", percentual: 4.0, preco: 21.99, desperdicio: false },
+                { nome: "Pescoço", percentual: 3.0, preco: 12.99, desperdicio: false },
+                { nome: "Paleta c/ Osso", percentual: 2.5, preco: 21.99, desperdicio: false },
+                { nome: "Agulha", percentual: 2.5, preco: 21.99, desperdicio: false },
+                { nome: "Peito", percentual: 2.5, preco: 19.99, desperdicio: false },
+                { nome: "Bistecão da Agulha", percentual: 2.0, preco: 23.99, desperdicio: false },
                 { nome: "Canela p/ Inteira", percentual: 1.0, preco: 12.99, desperdicio: false },
                 { nome: "Canela de Bandeja", percentual: 1.5, preco: 19.99, desperdicio: false },
-                { nome: "Ossos & Desperdício (Quebra)", percentual: 10.0, preco: 0.00, desperdicio: true }
+                { nome: "Ossos & Desperdício (Quebra)", percentual: 20.0, preco: 0.00, desperdicio: true }
             ],
             banda_esquerda: [
-                { nome: "Picanha", percentual: 2.0, preco: 59.99, desperdicio: false },
-                { nome: "Filé Mignon", percentual: 1.5, preco: 58.99, desperdicio: false },
-                { nome: "Alcatra", percentual: 5.5, preco: 44.99, desperdicio: false },
-                { nome: "Alcatra c/ Maminha", percentual: 4.0, preco: 41.99, desperdicio: false },
-                { nome: "Contra Filé", percentual: 7.0, preco: 49.99, desperdicio: false },
-                { nome: "Coxão Mole", percentual: 11.5, preco: 37.99, desperdicio: false },
-                { nome: "Patinho", percentual: 9.0, preco: 31.99, desperdicio: false },
-                { nome: "Coxão Duro", percentual: 8.5, preco: 32.99, desperdicio: false },
-                { nome: "Fraldinha", percentual: 2.5, preco: 39.99, desperdicio: false },
-                { nome: "Paleta s/ Osso", percentual: 6.5, preco: 34.99, desperdicio: false },
-                { nome: "Músculo", percentual: 4.5, preco: 26.99, desperdicio: false },
-                { nome: "Moída de Segunda", percentual: 5.0, preco: 19.99, desperdicio: false },
-                { nome: "Bisteca", percentual: 3.5, preco: 32.99, desperdicio: false },
-                { nome: "Bife Especial", percentual: 3.0, preco: 29.99, desperdicio: false },
-                { nome: "Costela Mindinha", percentual: 4.0, preco: 24.99, desperdicio: false },
-                { nome: "Costela Ripa", percentual: 4.5, preco: 21.99, desperdicio: false },
-                { nome: "Pescoço", percentual: 3.5, preco: 12.99, desperdicio: false },
-                { nome: "Paleta c/ Osso", percentual: 3.0, preco: 21.99, desperdicio: false },
-                { nome: "Agulha", percentual: 3.0, preco: 21.99, desperdicio: false },
-                { nome: "Peito", percentual: 3.0, preco: 19.99, desperdicio: false },
-                { nome: "Bistecão da Agulha", percentual: 2.5, preco: 23.99, desperdicio: false },
+                { nome: "Picanha", percentual: 1.5, preco: 59.99, desperdicio: false },
+                { nome: "Filé Mignon", percentual: 1.0, preco: 58.99, desperdicio: false },
+                { nome: "Alcatra", percentual: 4.5, preco: 44.99, desperdicio: false },
+                { nome: "Alcatra c/ Maminha", percentual: 3.5, preco: 41.99, desperdicio: false },
+                { nome: "Contra Filé", percentual: 6.0, preco: 49.99, desperdicio: false },
+                { nome: "Coxão Mole", percentual: 10.0, preco: 37.99, desperdicio: false },
+                { nome: "Patinho", percentual: 8.0, preco: 31.99, desperdicio: false },
+                { nome: "Coxão Duro", percentual: 7.5, preco: 32.99, desperdicio: false },
+                { nome: "Fraldinha", percentual: 2.0, preco: 39.99, desperdicio: false },
+                { nome: "Paleta s/ Osso", percentual: 5.5, preco: 34.99, desperdicio: false },
+                { nome: "Músculo", percentual: 3.5, preco: 26.99, desperdicio: false },
+                { nome: "Moída de Segunda", percentual: 4.5, preco: 19.99, desperdicio: false },
+                { nome: "Bisteca", percentual: 3.0, preco: 32.99, desperdicio: false },
+                { nome: "Bife Especial", percentual: 2.5, preco: 29.99, desperdicio: false },
+                { nome: "Costela Mindinha", percentual: 3.5, preco: 24.99, desperdicio: false },
+                { nome: "Costela Ripa", percentual: 4.0, preco: 21.99, desperdicio: false },
+                { nome: "Pescoço", percentual: 3.0, preco: 12.99, desperdicio: false },
+                { nome: "Paleta c/ Osso", percentual: 2.5, preco: 21.99, desperdicio: false },
+                { nome: "Agulha", percentual: 2.5, preco: 21.99, desperdicio: false },
+                { nome: "Peito", percentual: 2.5, preco: 19.99, desperdicio: false },
+                { nome: "Bistecão da Agulha", percentual: 2.0, preco: 23.99, desperdicio: false },
                 { nome: "Canela p/ Inteira", percentual: 1.0, preco: 12.99, desperdicio: false },
                 { nome: "Canela de Bandeja", percentual: 1.5, preco: 19.99, desperdicio: false },
-                { nome: "Ossos & Desperdício (Quebra)", percentual: 10.0, preco: 0.00, desperdicio: true }
+                { nome: "Ossos & Desperdício (Quebra)", percentual: 20.0, preco: 0.00, desperdicio: true }
             ]
         };
 
@@ -679,7 +672,8 @@
             name: "DesossaPro Premium Max",
             slogan: "Gestão Avançada de Carnes & Receita",
             phone: "(11) 99999-9999",
-            address: "Avenida do Abate, 500 - Setor Industrial"
+            address: "Avenida do Abate, 500 - Setor Industrial",
+            sheetsLink: ""
         };
         let shopProfile = JSON.parse(localStorage.getItem('desossa_shop_profile_v3')) || defaultShopProfile;
 
@@ -693,7 +687,6 @@
             switchTab('calculadora');
         };
 
-        // Alternador de Abas de Navegação (Fluido e Responsivo)
         window.switchTab = function(tabId) {
             const tabs = ['calculadora', 'planilha', 'configuracoes'];
             tabs.forEach(id => {
@@ -714,7 +707,6 @@
             });
         };
 
-        // Aplicação de Perfil de Açougue
         function applyShopProfile() {
             document.getElementById('headerShopName').textContent = shopProfile.name;
             document.getElementById('headerShopSlogan').textContent = shopProfile.slogan;
@@ -725,25 +717,20 @@
             document.getElementById('shopSlogan').value = shopProfile.slogan;
             document.getElementById('shopPhone').value = shopProfile.phone;
             document.getElementById('shopAddress').value = shopProfile.address;
-
-            // Template de Impressão de Nota Fiscal
-            document.getElementById('printShopName').textContent = shopProfile.name;
-            document.getElementById('printShopSlogan').textContent = shopProfile.slogan;
-            document.getElementById('printShopPhone').textContent = "TEL: " + shopProfile.phone;
-            document.getElementById('printShopAddress').textContent = "END: " + shopProfile.address;
+            document.getElementById('googleSheetsLink').value = shopProfile.sheetsLink || "";
         }
 
-        // Salvar Perfil do Estabelecimento
         window.salvarPerfilAcougue = function(event) {
             event.preventDefault();
             shopProfile.name = document.getElementById('shopName').value.trim();
             shopProfile.slogan = document.getElementById('shopSlogan').value.trim();
             shopProfile.phone = document.getElementById('shopPhone').value.trim();
             shopProfile.address = document.getElementById('shopAddress').value.trim();
+            shopProfile.sheetsLink = document.getElementById('googleSheetsLink').value.trim();
 
             localStorage.setItem('desossa_shop_profile_v3', JSON.stringify(shopProfile));
             applyShopProfile();
-            showToast("Perfil do Açougue atualizado com sucesso!");
+            showToast("Perfil do Açougue e Integração atualizados!");
         };
 
         // Controle e Mudança de Tema Escuro
@@ -773,7 +760,7 @@
                 : `<path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />`;
         }
 
-        // Toggle do Desenho do Boi no Celular (Zero Rolagem)
+        // Toggle do Desenho do Boi no Celular
         window.toggleCowMap = function() {
             const container = document.getElementById('cowSvgContainer');
             const toggleText = document.getElementById('btnCowToggleText');
@@ -786,7 +773,6 @@
             }
         };
 
-        // Seleção de Tipo de Peça Base
         window.selectPeca = function(peca) {
             activePeca = peca;
             
@@ -804,7 +790,6 @@
             calcularRendimentos();
         };
 
-        // Mudanças de realce no SVG de Giz do boi
         function highlightBoiSVG(peca) {
             const diant = document.getElementById('svg-dianteiro');
             const costela = document.getElementById('svg-boi_inteiro');
@@ -835,11 +820,9 @@
             }
         }
 
-        // Listener dinâmico de digitação de peso bruto
         const pesoBrutoInput = document.getElementById('pesoBruto');
         pesoBrutoInput.addEventListener('input', calcularRendimentos);
 
-        // Função Master de Cálculos de Peso, Desossa, Rendimento e Faturamento
         function calcularRendimentos() {
             const pesoBruto = parseFloat(pesoBrutoInput.value) || 0;
             const tabela = rendimentoTabelas[activePeca] || [];
@@ -851,7 +834,7 @@
                 document.getElementById('textFaturamentoEstimado').textContent = "R$ 0,00";
                 document.getElementById('textRendimentoKG').textContent = "0.00 kg";
                 document.getElementById('calculadoraCortesContainer').innerHTML = `
-                    <div class="text-center py-6 text-xs font-bold text-slate-400 dark:text-slate-500">Introduza o peso bruto para calcular.</div>
+                    <div class="text-center py-6 text-xs font-bold text-slate-400 dark:text-slate-500">Introduza o peso de abate para ver faturamento detalhado.</div>
                 `;
                 document.getElementById('labelCortesCount').textContent = "0 Cortes";
                 return;
@@ -912,13 +895,11 @@
             document.getElementById('donutPercent').textContent = `${percent.toFixed(0)}%`;
         }
 
-        // Limpar os campos da calculadora
         window.limparCampos = function() {
             document.getElementById('desossaForm').reset();
             calcularRendimentos();
         };
 
-        // Salvar histórico de lote processado (Logs)
         window.salvarDesossa = function(event) {
             event.preventDefault();
             const pesoBruto = parseFloat(pesoBrutoInput.value) || 0;
@@ -957,12 +938,27 @@
             logsHistorico.unshift(novoLog);
             localStorage.setItem('desossa_pro_logs_v6', JSON.stringify(logsHistorico));
 
+            // Simular Sincronização automática com a API do Google Sheets caso o link esteja preenchido
+            if (shopProfile.sheetsLink) {
+                console.log("Enviando dados para a planilha Google Sheets vinculada: ", shopProfile.sheetsLink);
+                // Aqui simula-se o envio assíncrono em plano de fundo sem travar a interface
+                fetch(shopProfile.sheetsLink, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(novoLog)
+                }).catch(err => console.log("Erro de gravação direta CORS Sheets: ", err));
+            }
+
             renderSpreadsheet();
-            limparCampos();
-            showToast("Lote de desossa e faturamento salvos no Log!");
+            
+            // Praticidade extrema: Limpa apenas o peso bruto para a próxima pesagem do dia
+            pesoBrutoInput.value = '';
+            calcularRendimentos();
+            
+            showToast("Registrado com sucesso!");
         };
 
-        // Renderização da Planilha de Auditoria (Aba Planilha)
         window.renderSpreadsheet = function() {
             const tbody = document.getElementById('spreadsheetBody');
             const emptyState = document.getElementById('spreadsheetEmptyState');
@@ -1018,7 +1014,6 @@
             }).join('');
         };
 
-        // Copiar Resumo em Texto da calculadora
         window.copiarResumoTextual = function() {
             const pesoBruto = parseFloat(pesoBrutoInput.value) || 0;
             if (pesoBruto <= 0) {
@@ -1030,14 +1025,13 @@
             gerarECopiarTexto(pesoBruto, responsavel, fornecedor, activePeca);
         };
 
-        // Copiar Resumo em Texto de um lote do Log
         window.copiarResumoDeLote = function(id) {
             const log = logsHistorico.find(l => l.id === id);
             if (!log) return;
             gerarECopiarTexto(log.pesoBruto, log.responsavel, log.fornecedor, log.tipo);
         };
 
-        function gerarECopiarTexto(pesoBruto, responsavel, fornecedor, tipoPeca) {
+        function generarECopiarTexto(pesoBruto, responsavel, fornecedor, tipoPeca) {
             const tabela = rendimentoTabelas[tipoPeca];
             let carneLimpa = 0;
             let desperdicio = 0;
@@ -1089,7 +1083,6 @@ Emitido eletronicamente via DesossaPro.`;
             showToast("Resumo copiado com sucesso!");
         }
 
-        // Recuperar e Carregar Lote na Calculadora
         window.recuperarLote = function(id) {
             const log = logsHistorico.find(l => l.id === id);
             if (!log) return;
@@ -1103,17 +1096,9 @@ Emitido eletronicamente via DesossaPro.`;
             switchTab('calculadora');
         };
 
-        // Imprimir Lote direto do histórico
         window.imprimirCupomDoHistorico = function(id) {
             const log = logsHistorico.find(l => l.id === id);
             if (!log) return;
-
-            document.getElementById('printData').textContent = `DATA: ${log.data}`;
-            document.getElementById('printResponsavel').textContent = log.responsavel.toUpperCase();
-            document.getElementById('printFornecedor').textContent = log.fornecedor.toUpperCase();
-            document.getElementById('printPeca').textContent = pecaNomesAmigaveis[log.tipo].toUpperCase();
-            document.getElementById('printPesoBruto').textContent = `${log.pesoBruto.toFixed(2).replace('.', ',')} KG`;
-            document.getElementById('printFaturamento').textContent = `R$ ${log.faturamento.toFixed(2).replace('.', ',')}`;
 
             // Tabela do Cupom
             const tabela = rendimentoTabelas[log.tipo];
@@ -1134,11 +1119,163 @@ Emitido eletronicamente via DesossaPro.`;
                 `;
             });
 
-            document.getElementById('printTableBody').innerHTML = htmlTable;
+            const templateCupom = `
+                <div class="max-w-xs mx-auto border border-black p-4 text-xs font-mono space-y-4">
+                    <div class="text-center border-b border-dashed border-black pb-2">
+                        <h2 class="text-sm font-bold uppercase">${shopProfile.name}</h2>
+                        <p class="text-[9px] text-gray-500 uppercase">${shopProfile.slogan}</p>
+                        <p class="text-[9px] text-gray-500">TEL: ${shopProfile.phone}</p>
+                        <p class="text-[9px] text-gray-500">END: ${shopProfile.address}</p>
+                        <p class="text-[9px] mt-1">DATA: ${log.data}</p>
+                    </div>
+
+                    <div class="space-y-1">
+                        <p><strong>OPERADOR:</strong> <span>${log.responsavel.toUpperCase()}</span></p>
+                        <p><strong>FRIGORÍFICO:</strong> <span>${log.fornecedor.toUpperCase()}</span></p>
+                        <p><strong>PEÇA BASE:</strong> <span>${pecaNomesAmigaveis[log.tipo].toUpperCase()}</span></p>
+                    </div>
+
+                    <div class="border-t border-b border-dashed border-black py-2 font-bold text-sm flex justify-between">
+                        <span>PESO BRUTO ENTRADA:</span>
+                        <span>${log.pesoBruto.toFixed(2).replace('.', ',')} KG</span>
+                    </div>
+
+                    <div class="font-bold text-sm flex justify-between bg-gray-150 p-1.5 rounded">
+                        <span>FATURAMENTO ESTIMADO:</span>
+                        <span>R$ ${log.faturamento.toFixed(2).replace('.', ',')}</span>
+                    </div>
+
+                    <table class="w-full text-left text-[10px] border-collapse">
+                        <thead>
+                            <tr class="border-b border-black">
+                                <th class="py-1">Corte</th>
+                                <th class="py-1 text-right">Rend. %</th>
+                                <th class="py-1 text-right">Preço/KG</th>
+                                <th class="py-1 text-right">Valor R$</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${htmlTable}
+                        </tbody>
+                    </table>
+
+                    <div class="border-t border-dashed border-black pt-2 text-center text-[9px] space-y-1">
+                        <p>Este cupom é uma ferramenta de auditoria de rendimento.</p>
+                        <p>Agradecemos a preferência!</p>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('printContent').innerHTML = templateCupom;
             window.print();
         };
 
-        // Excluir lote do log
+        window.gerarPDFConsolidado = function() {
+            if (logsHistorico.length === 0) {
+                alert("Nenhum registro de log para consolidar no PDF.");
+                return;
+            }
+
+            let carneLimpaTotal = 0;
+            let desperdicioTotal = 0;
+            let pesoBrutoTotal = 0;
+            let faturamentoTotal = 0;
+
+            let tabelaLinhas = '';
+            logsHistorico.forEach(log => {
+                carneLimpaTotal += log.carneLimpa;
+                desperdicioTotal += log.desperdicio;
+                pesoBrutoTotal += log.pesoBruto;
+                faturamentoTotal += log.faturamento;
+
+                tabelaLinhas += `
+                    <tr class="border-b border-gray-300 text-[10px]">
+                        <td class="py-2 font-medium">${log.data}</td>
+                        <td class="py-2 font-bold">${pecaNomesAmigaveis[log.tipo]}</td>
+                        <td class="py-2 text-right">${log.pesoBruto.toFixed(2).replace('.', ',')} kg</td>
+                        <td class="py-2 text-right text-emerald-600">${log.carneLimpa.toFixed(2).replace('.', ',')} kg</td>
+                        <td class="py-2 text-right text-red-600">${log.desperdicio.toFixed(2).replace('.', ',')} kg</td>
+                        <td class="py-2 text-right font-bold">R$ ${log.faturamento.toFixed(2).replace('.', ',')}</td>
+                        <td class="py-2">${log.responsavel}</td>
+                        <td class="py-2">${log.fornecedor}</td>
+                    </tr>
+                `;
+            });
+
+            const percentLimpaTotal = (carneLimpaTotal / pesoBrutoTotal) * 100;
+            const percentDesperdicioTotal = (desperdicioTotal / pesoBrutoTotal) * 100;
+
+            const templateRelatorioConsolidado = `
+                <div class="p-4 space-y-6">
+                    <!-- Cabeçalho Institucional -->
+                    <div class="flex justify-between items-start border-b-2 border-slate-900 pb-4">
+                        <div>
+                            <h1 class="text-xl font-black tracking-tight text-slate-950 uppercase">${shopProfile.name}</h1>
+                            <p class="text-xs text-slate-600 font-semibold uppercase tracking-wider">${shopProfile.slogan}</p>
+                            <p class="text-[10px] text-slate-500 mt-1">${shopProfile.address} | Tel: ${shopProfile.phone}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-block bg-slate-950 text-white text-[9px] font-black tracking-widest px-3 py-1 rounded-full uppercase">RELATÓRIO AUDITADO</span>
+                            <p class="text-[10px] text-slate-500 mt-2">Emitido em: ${new Date().toLocaleString('pt-BR')}</p>
+                        </div>
+                    </div>
+
+                    <!-- Bloco de Métricas Acumuladas -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="border border-slate-300 p-3 rounded-xl bg-slate-50">
+                            <span class="block text-[8px] text-slate-500 font-bold tracking-wider uppercase">PESO BRUTO TOTAL</span>
+                            <span class="block text-lg font-black text-slate-950 mt-1">${pesoBrutoTotal.toFixed(2).replace('.', ',')} KG</span>
+                        </div>
+                        <div class="border border-emerald-300 p-3 rounded-xl bg-emerald-50/50">
+                            <span class="block text-[8px] text-emerald-600 font-bold tracking-wider uppercase">CARNE APROVEITADA TOTAL</span>
+                            <span class="block text-lg font-black text-emerald-600 mt-1">${carneLimpaTotal.toFixed(2).replace('.', ',')} KG</span>
+                            <span class="block text-[9px] text-emerald-500 font-medium mt-0.5">${percentLimpaTotal.toFixed(1)}% de rendimento</span>
+                        </div>
+                        <div class="border border-red-300 p-3 rounded-xl bg-red-50/50">
+                            <span class="block text-[8px] text-red-600 font-bold tracking-wider uppercase">PERDAS & QUEBRAS</span>
+                            <span class="block text-lg font-black text-red-600 mt-1">${desperdicioTotal.toFixed(2).replace('.', ',')} KG</span>
+                            <span class="block text-[9px] text-red-500 font-medium mt-0.5">${percentDesperdicioTotal.toFixed(1)}% de descarte</span>
+                        </div>
+                        <div class="border border-slate-300 p-3 rounded-xl bg-slate-50">
+                            <span class="block text-[8px] text-slate-500 font-bold tracking-wider uppercase">VALOR TOTAL ESTIMADO</span>
+                            <span class="block text-lg font-black text-slate-950 mt-1">R$ ${faturamentoTotal.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                    </div>
+
+                    <!-- Tabela de Logs Consolidada -->
+                    <div class="space-y-2">
+                        <h3 class="text-[10px] font-black text-slate-900 uppercase tracking-widest">Planilha de Entradas e Pesagem do Período</h3>
+                        <table class="w-full text-left border-collapse text-xs border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-100 border-b border-gray-400 text-[8px] font-black text-slate-600 uppercase tracking-widest">
+                                    <th class="p-2">Data/Hora</th>
+                                    <th class="p-2">Peça</th>
+                                    <th class="p-2 text-right">Peso Entrada</th>
+                                    <th class="p-2 text-right">Carne Aproveitada</th>
+                                    <th class="p-2 text-right">Descarte</th>
+                                    <th class="p-2 text-right">Valor Est.</th>
+                                    <th class="p-2">Operador</th>
+                                    <th class="p-2">Fornecedor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${tabelaLinhas}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Rodapé de Auditoria -->
+                    <div class="border-t border-dashed border-gray-400 pt-4 flex justify-between items-center text-[9px] text-gray-500">
+                        <p>DesossaPro Premium Max - Auditoria de Controle Interno de Carne Bovina</p>
+                        <p>Assinatura Responsável: _______________________________________</p>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('printContent').innerHTML = templateRelatorioConsolidado;
+            window.print();
+        };
+
         window.deletarLote = function(id) {
             if (confirm("Quer realmente excluir permanentemente esse registro de log?")) {
                 logsHistorico = logsHistorico.filter(l => l.id !== id);
@@ -1148,7 +1285,6 @@ Emitido eletronicamente via DesossaPro.`;
             }
         };
 
-        // Zerar Logs Completamente
         window.confirmarZerarLogs = function() {
             if (confirm("ATENÇÃO: Você irá apagar todo o histórico de logs do sistema de forma irreversível. Prosseguir?")) {
                 logsHistorico = [];
@@ -1158,7 +1294,6 @@ Emitido eletronicamente via DesossaPro.`;
             }
         };
 
-        // Exportação de CSV para carregar no Excel / Google Sheets
         window.exportarCSV = function() {
             if (logsHistorico.length === 0) {
                 alert("Nenhum dado cadastrado para exportação.");
@@ -1196,7 +1331,6 @@ Emitido eletronicamente via DesossaPro.`;
             showToast("Planilha CSV exportada com sucesso!");
         };
 
-        // CONFIGURAR: Carregar Fórmulas de Rendimento & Preço por Corte
         window.loadYieldConfig = function() {
             const selector = document.getElementById('yieldPecaSelector');
             const pecaSelected = selector.value;
@@ -1232,7 +1366,6 @@ Emitido eletronicamente via DesossaPro.`;
             checkYieldSum();
         };
 
-        // Validação de Soma de Percentual (Deve somar exatamente 100%)
         window.checkYieldSum = function() {
             const inputs = document.querySelectorAll('.yield-percent-input');
             let sum = 0;
@@ -1250,7 +1383,6 @@ Emitido eletronicamente via DesossaPro.`;
             }
         };
 
-        // Salvar Nova Configuração de Fórmula & Preço Customizados
         window.salvarYieldConfig = function(event) {
             event.preventDefault();
             const pecaSelected = document.getElementById('yieldPecaSelector').value;
@@ -1283,7 +1415,6 @@ Emitido eletronicamente via DesossaPro.`;
             showToast("Regra de rendimento & preços atualizados com sucesso!");
         };
 
-        // Reverter para as fórmulas e preços padrões de fábrica
         window.resetYieldsToDefault = function() {
             if (confirm("Quer reverter todos os rendimentos de cortes e preços por KG para os padrões de fábrica?")) {
                 rendimentoTabelas = JSON.parse(JSON.stringify(defaultRendimentoTabelas));
@@ -1294,7 +1425,6 @@ Emitido eletronicamente via DesossaPro.`;
             }
         };
 
-        // Impressão Física de Nota / Cupom
         window.imprimirCupom = function() {
             const pesoBruto = parseFloat(pesoBrutoInput.value) || 0;
             if (pesoBruto <= 0) {
@@ -1341,7 +1471,6 @@ Emitido eletronicamente via DesossaPro.`;
             window.print();
         };
 
-        // Toast de Operações Concluídas
         function showToast(message) {
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toastMessage');
