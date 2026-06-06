@@ -27,3 +27,4 @@ O faturamento estimado é calculado multiplicando o peso de cada carne aproveit�
 $$\text{Valor Comercial do Corte} = \text{Peso Estimado do Corte (kg)} \times \text{Preço de Venda do Corte (R\$/kg)}$$
 O sistema soma os valores comerciais de todos os cortes para chegar ao Faturamento Bruto Estimado daquela carcaça, fornecendo a base exata para o estoque e o preço de venda que o cliente usará no sistema de vendas (PDV).
 
+'>
