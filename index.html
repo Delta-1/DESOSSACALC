@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>DesossaPro - Sistema de Rendimento & Faturamento</title>
+    
+    <!-- Favicon Inline Customizado (Força o navegador a anular caches de outros apps do Canvas) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥩</text></svg>">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -49,7 +53,7 @@
             overflow: hidden;
             height: 0;
             width: 0;
-            /* Prevents form and key elements from being focusable/tabbable when hidden */
+            /* Evita que elementos escondidos continuem clicáveis */
             display: none;
         }
         .tab-active {
@@ -59,7 +63,7 @@
             position: relative;
             display: block;
         }
-        /* Custom scrollbar for webkit */
+        /* Scrollbar customizada e moderna */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -74,7 +78,7 @@
         .dark ::-webkit-scrollbar-thumb {
             background: #475569;
         }
-        /* Folha de estilos de impressão profissional e sem perdas */
+        /* Impressão profissional adaptada para cupom e folhas de auditoria */
         @media print {
             body, html {
                 height: auto !important;
@@ -82,7 +86,6 @@
                 background: white !important;
                 color: black !important;
             }
-            /* Ocultar todo o app visualmente para não dar conflito */
             .no-print, header, nav, footer, main, .tab-view {
                 display: none !important;
                 height: 0 !important;
@@ -166,11 +169,11 @@
     <!-- Contêiner Wrapper Central SaaS (md:h-[calc(100vh-112px)] para ocupar exatamente a altura no PC) -->
     <div class="relative flex-grow flex flex-col w-full md:h-[calc(100vh-112px)] max-w-6xl mx-auto py-4 overflow-hidden">
         
-        <!-- VIEW 1: CALCULADORA DE DESOSSA -->
+        <!-- VIEW 1: CALCULADORA DE DESOSSA (Layout de 3 Colunas no PC) -->
         <div id="view-calculadora" class="tab-view tab-active w-full px-4 grid grid-cols-1 lg:grid-cols-12 gap-6 h-full overflow-y-auto md:overflow-hidden">
             
-            <!-- CONTÊINER 1: Entrada de dados e Boi (Esquerda - 4 colunas) -->
-            <div class="lg:col-span-4 flex flex-col space-y-4 h-full overflow-y-auto">
+            <!-- COLUNA 1: Desenho e Escolha da Peça (Esquerda - 4 colunas) -->
+            <div class="lg:col-span-4 flex flex-col space-y-4 h-full overflow-y-auto md:pr-1">
                 
                 <!-- Quadro Negro do Boi Realista de Giz -->
                 <div class="bg-slate-900 dark:bg-black rounded-3xl border border-slate-800 shadow-xl p-4 flex flex-col items-center justify-between relative overflow-hidden flex-shrink-0">
@@ -243,10 +246,10 @@
                 </div>
             </div>
 
-            <!-- CONTÊINER 2: Gráfico, Totais e Faturamento (Meio - 4 colunas) -->
-            <div class="lg:col-span-4 flex flex-col space-y-4 h-full overflow-y-auto">
+            <!-- COLUNA 2: Lançamento de Dados e Estatísticas (Meio - 4 colunas) -->
+            <div class="lg:col-span-4 flex flex-col space-y-4 h-full overflow-y-auto md:pr-1">
                 
-                <!-- Formulário Técnico e Lançamento de Peso (Ajustado para perfeito clique no PC) -->
+                <!-- Formulário Técnico e Lançamento de Peso -->
                 <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-5 shadow-sm flex-shrink-0">
                     <form id="desossaForm" onsubmit="salvarDesossa(event)" class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div class="md:col-span-2">
@@ -292,7 +295,7 @@
                         <div class="flex space-x-1.5">
                             <button onclick="copiarResumoTextual()" class="p-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-all flex items-center space-x-1 text-[10px] font-bold" title="Copiar em formato texto">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m-5 5h6m-6 4h6m-6 4h3" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 00-2 2h2a2 2 0 00-2-2M8 5a2 2 0 012-2h2a2 2 0 012 2m-5 5h6m-6 4h6m-6 4h3" />
                                 </svg>
                                 <span>Copiar Resumo</span>
                             </button>
@@ -350,14 +353,14 @@
                 </div>
             </div>
 
-            <!-- CONTÊINER 3: Os 23 Cortes de Abate do Açougue (Direita - 4 colunas) -->
+            <!-- COLUNA 3: Os 23 Cortes de Abate do Açougue (Direita - 4 colunas) -->
             <div class="lg:col-span-4 flex flex-col space-y-4 h-full overflow-y-auto">
                 <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-4 shadow-sm flex flex-col h-full overflow-hidden">
                     <div class="bg-slate-50 dark:bg-slate-950 px-4 py-2.5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between text-[9px] font-black tracking-widest text-slate-400 dark:text-slate-500 uppercase flex-shrink-0">
                         <span>Cortes do Dia (Detalhados)</span>
                         <span id="labelCortesCount">0 Cortes</span>
                     </div>
-                    <div id="calculadoraCortesContainer" class="p-2 space-y-1 overflow-y-auto flex-grow divide-y divide-slate-100 dark:divide-slate-800/40">
+                    <div id="calculadoraCortesContainer" class="p-2 space-y-1 overflow-y-auto flex-grow divide-y divide-slate-100 dark:divide-slate-800/40 animate-fade">
                         <!-- Inserido dinamicamente via JS -->
                         <div class="text-center py-6 text-xs font-bold text-slate-400 dark:text-slate-500">Introduza o peso de abate para ver faturamento detalhado.</div>
                     </div>
@@ -421,14 +424,14 @@
                                     <th class="px-4 py-2.5 text-right">Faturamento Est.</th>
                                     <th class="px-4 py-2.5">Operador</th>
                                     <th class="px-4 py-2.5">Fornecedor</th>
-                                    <th class="px-4 py-2.5 text-right">Ação</th>
+                                    <th class="px-4 py-2.5 text-right font-black">Ação</th>
                                 </tr>
                             </thead>
                             <tbody id="spreadsheetBody" class="divide-y divide-slate-100 dark:divide-slate-800/50">
                                 <!-- Preenchido via JS -->
                             </tbody>
                         </table>
-                        <div id="spreadsheetEmptyState" class="hidden text-center py-12 text-slate-400 font-bold text-xs uppercase tracking-wider bg-slate-50/50 dark:bg-slate-950/20 flex flex-col items-center justify-center">
+                        <div id="spreadsheetEmptyState" class="hidden text-center py-12 text-slate-400 font-bold text-xs uppercase tracking-wider bg-slate-50/50 dark:bg-slate-950/20 flex flex-col items-center justify-center animate-pulse">
                             Nenhum registro de log encontrado para exibir.
                         </div>
                     </div>
@@ -439,7 +442,7 @@
         <!-- VIEW 3: CONFIGURAÇÕES -->
         <div id="view-configuracoes" class="tab-view tab-inactive w-full px-4 grid grid-cols-1 lg:grid-cols-12 gap-6 h-full overflow-y-auto">
             
-            <!-- Seção: Perfil do Açougue e Integração com Planilha Google -->
+            <!-- Seção: Perfil do Açougue e Sincronização Google Planilhas -->
             <section class="lg:col-span-4 space-y-4">
                 <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800 p-5 shadow-sm space-y-3">
                     <div class="border-b border-slate-100 dark:border-slate-800 pb-2">
@@ -467,7 +470,7 @@
                             <input type="text" id="shopAddress" placeholder="Rua Central, 123 - Centro" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs font-bold text-slate-850 dark:text-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                         </div>
 
-                        <!-- Configurar link do Google Sheets para o aplicativo fazer as sincronias automáticas -->
+                        <!-- Link Planilha Google Sincronizada -->
                         <div class="border-t border-slate-100 dark:border-slate-800 pt-3">
                             <span class="block text-[9px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">Sincronização de Planilha</span>
                             <div>
@@ -475,7 +478,7 @@
                                 <input type="url" id="googleSheetsLink" placeholder="https://docs.google.com/spreadsheets/d/..." class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs font-semibold text-slate-850 dark:text-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                             </div>
                             <p class="text-[9px] text-slate-400 dark:text-slate-500 mt-2 leading-relaxed">
-                                Cole aqui o link da planilha do Google para gravação automática ao clicar em <strong>Registrar Entrada</strong>.
+                                Cole aqui o link de gravação ou webhook do Google Sheets para que as entradas fiquem salvas automaticamente na nuvem externa.
                             </p>
                         </div>
 
@@ -544,8 +547,8 @@
 
     <!-- SCRIPT TÉCNICO DE GESTÃO, CONTROLE E CÁLCULO DE AUDITORIA -->
     <script>
-        // Tabelas de Porcentagens de Rendimento baseada nos cortes requisitados pelo cliente
-        // Nota: as quebras e ossos agora estão mapeados com percentuais reais de desperdício (20% boi inteiro, 30% dianteiro, 15% traseiro)
+        // Tabelas de Porcentagens de Rendimento baseadas nos cortes requisitados pelo cliente
+        // Nota: as quebras e ossos agora estão mapeadas com percentuais reais de desperdício (20% boi inteiro, 30% dianteiro, 15% traseiro)
         const defaultRendimentoTabelas = {
             boi_inteiro: [
                 { nome: "Picanha", percentual: 1.5, preco: 59.99, desperdicio: false },
@@ -653,7 +656,7 @@
             ]
         };
 
-        // Carrega regras de rendimento do LocalStorage
+        // Carrega regras de rendimento do LocalStorage ou fallback para padrão
         let rendimentoTabelas = JSON.parse(localStorage.getItem('desossa_yield_config_v4')) || JSON.parse(JSON.stringify(defaultRendimentoTabelas));
 
         const pecaNomesAmigaveis = {
@@ -941,7 +944,6 @@
             // Simular Sincronização automática com a API do Google Sheets caso o link esteja preenchido
             if (shopProfile.sheetsLink) {
                 console.log("Enviando dados para a planilha Google Sheets vinculada: ", shopProfile.sheetsLink);
-                // Aqui simula-se o envio assíncrono em plano de fundo sem travar a interface
                 fetch(shopProfile.sheetsLink, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -1031,7 +1033,7 @@
             gerarECopiarTexto(log.pesoBruto, log.responsavel, log.fornecedor, log.tipo);
         };
 
-        function generarECopiarTexto(pesoBruto, responsavel, fornecedor, tipoPeca) {
+        function gerarECopiarTexto(pesoBruto, responsavel, fornecedor, tipoPeca) {
             const tabela = rendimentoTabelas[tipoPeca];
             let carneLimpa = 0;
             let desperdicio = 0;
@@ -1100,7 +1102,6 @@ Emitido eletronicamente via DesossaPro.`;
             const log = logsHistorico.find(l => l.id === id);
             if (!log) return;
 
-            // Tabela do Cupom
             const tabela = rendimentoTabelas[log.tipo];
             let htmlTable = '';
             tabela.forEach(item => {
